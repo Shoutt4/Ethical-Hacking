@@ -14,9 +14,9 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <a href="#top" aria-label="EHC Group — volver arriba" className="inline-flex items-center gap-2.5 no-underline">
-              <HexCheck className="h-[30px] w-[27px]" />
+              <HexCheck className="h-[70px] w-[220px]" />
               <span className="font-display text-[22px] tracking-[3px] text-white">
-                EHC<em className="ml-1.5 not-italic text-volt">GROUP</em>
+                
               </span>
             </a>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-fog">

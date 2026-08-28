@@ -1,8 +1,8 @@
+
 import { useEffect, useState } from 'react'
 import { NAV_LINKS } from '../lib/data'
 import { BTN_PRIMARY, BTN_SM } from '../lib/ui'
-import { HexCheck } from './Hex'
-
+import logo from '../assets/logo.png'
 interface NavbarProps {
   onSnack: (msg: string) => void
 }
@@ -31,10 +31,12 @@ export default function Navbar({ onSnack }: NavbarProps) {
       },
       { rootMargin: '-45% 0px -50% 0px', threshold: 0 },
     )
+
     SECTION_IDS.forEach(id => {
       const el = document.getElementById(id)
       if (el) io.observe(el)
     })
+
     return () => io.disconnect()
   }, [])
 
@@ -42,6 +44,7 @@ export default function Navbar({ onSnack }: NavbarProps) {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpen(false)
     }
+
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [])
@@ -51,6 +54,7 @@ export default function Navbar({ onSnack }: NavbarProps) {
       onSnack(!prev ? 'Prototype: EN content pending.' : 'Prototipo: contenido ES activo.')
       return !prev
     })
+
     document.documentElement.lang = langEs ? 'en' : 'es'
   }
 
@@ -61,11 +65,18 @@ export default function Navbar({ onSnack }: NavbarProps) {
       }`}
     >
       <div className="mx-auto flex h-[72px] w-full max-w-6xl items-center justify-between gap-6 px-5 md:px-8">
-        <a href="#top" aria-label="EHC Group — inicio" className="inline-flex items-center gap-2.5 no-underline">
-          <HexCheck className="h-[30px] w-[27px]" />
-          <span className="font-display text-[22px] tracking-[3px] text-white">
-            EHC<em className="ml-1.5 not-italic text-volt">GROUP</em>
-          </span>
+
+        {/* Logo */}
+        <a
+          href="#top"
+          aria-label="EHC Group — inicio"
+          className="inline-flex items-center no-underline"
+        >
+          <img
+            src={logo}
+            alt="EHC Group"
+            className="h-[45px] w-auto object-contain"
+          />
         </a>
 
         <nav aria-label="Principal" className="hidden items-center gap-7 lg:flex">
@@ -91,13 +102,22 @@ export default function Navbar({ onSnack }: NavbarProps) {
             aria-label="Cambiar idioma (prototipo)"
             className="hidden cursor-pointer border-none bg-none px-1 py-2 font-code text-xs text-fog sm:block"
           >
-            <span className={langEs ? 'text-volt-light' : 'opacity-50'}>ES</span>
+            <span className={langEs ? 'text-volt-light' : 'opacity-50'}>
+              ES
+            </span>
             <i className="not-italic opacity-50">/</i>
-            <span className={langEs ? 'opacity-50' : 'text-volt-light'}>EN</span>
+            <span className={langEs ? 'opacity-50' : 'text-volt-light'}>
+              EN
+            </span>
           </button>
-          <a href="#contacto" className={`${BTN_PRIMARY} ${BTN_SM} hidden md:inline-flex`}>
+
+          <a
+            href="#contacto"
+            className={`${BTN_PRIMARY} ${BTN_SM} hidden md:inline-flex`}
+          >
             Contáctanos
           </a>
+
           <button
             type="button"
             onClick={() => setOpen(prev => !prev)}
@@ -108,17 +128,23 @@ export default function Navbar({ onSnack }: NavbarProps) {
           >
             <span
               className={`absolute right-[10px] left-[10px] h-0.5 bg-white transition-transform duration-250 ${
-                open ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-[13px]'
+                open
+                  ? 'top-1/2 -translate-y-1/2 rotate-45'
+                  : 'top-[13px]'
               }`}
             />
+
             <span
               className={`absolute top-1/2 right-[10px] left-[10px] h-0.5 -translate-y-1/2 bg-white transition-opacity duration-200 ${
                 open ? 'opacity-0' : 'opacity-100'
               }`}
             />
+
             <span
               className={`absolute right-[10px] left-[10px] h-0.5 bg-white transition-transform duration-250 ${
-                open ? 'top-1/2 -translate-y-1/2 -rotate-45' : 'bottom-[13px]'
+                open
+                  ? 'top-1/2 -translate-y-1/2 -rotate-45'
+                  : 'bottom-[13px]'
               }`}
             />
           </button>
@@ -142,7 +168,12 @@ export default function Navbar({ onSnack }: NavbarProps) {
             {link.label}
           </a>
         ))}
-        <a href="#contacto" onClick={() => setOpen(false)} className={`${BTN_PRIMARY} mt-4 min-w-[220px]`}>
+
+        <a
+          href="#contacto"
+          onClick={() => setOpen(false)}
+          className={`${BTN_PRIMARY} mt-4 min-w-[220px]`}
+        >
           Contáctanos
         </a>
       </div>
