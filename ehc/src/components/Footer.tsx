@@ -27,7 +27,7 @@ export default function Footer() {
 
           <nav aria-label="Servicios" className="text-sm">
             <p className="mb-3 font-code text-[11px] tracking-[3px] text-fog uppercase">Servicios</p>
-            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+           {/*ASDsdoas[pdoaspdoaspoaspdspok;lml,km] <ul className="m-0 flex list-none flex-col gap-2 p-0">
               {SERVICES_FOOTER.map(item => (
                 <li key={item}>
                   <a href="#servicios" className="no-underline transition-colors duration-150 hover:text-volt-light">
@@ -35,12 +35,12 @@ export default function Footer() {
                   </a>
                 </li>
               ))}
-            </ul>
+            </ul>/}
           </nav>
 
           <nav aria-label="Secciones" className="text-sm">
             <p className="mb-3 font-code text-[11px] tracking-[3px] text-fog uppercase">Secciones</p>
-            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+           {/* <ul className="m-0 flex list-none flex-col gap-2 p-0">
               {NAV_LINKS.map(link => (
                 <li key={link.href}>
                   <a href={link.href} className="no-underline transition-colors duration-150 hover:text-volt-light">
@@ -53,7 +53,7 @@ export default function Footer() {
                   Contacto
                 </a>
               </li>
-            </ul>
+            </ul>*/}
           </nav>
         </div>
 

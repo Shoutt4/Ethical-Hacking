@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import FluidCursor from './components/FluidCursor'
+//import FluidCursor from './components/FluidCursor'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
@@ -46,7 +46,7 @@ export default function App() {
         flag{Yeah! you find the EHC Flag}
         Prototipo de rediseño — EHC Group · React + TS + Tailwind
       */}
-      <FluidCursor />
+      {/*<FluidCursor />*/}
       <Navbar onSnack={showSnack} />
       <main>
         <Hero />
