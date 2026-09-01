@@ -19,11 +19,11 @@ export default function Services() {
   const reduceMotion = useReducedMotion()
   const sectionRef = useRef<HTMLDivElement>(null)
   const isTargetingSection = useRef(false)
+  const isCooldown = useRef(false)
 
   // Captura el evento del ratón para alternar la card activa
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      // Solo intercepta si el ratón está sobre la sección
       if (!isTargetingSection.current) return
 
       const isScrollingDown = e.deltaY > 0
@@ -34,19 +34,24 @@ export default function Services() {
       // Si estamos en la última card y el usuario baja, permite el scroll normal de la web
       if (activeIndex === SERVICES.length - 1 && isScrollingDown) return
 
-      // Evita que la página completa se desplace mientras cambias de card
       e.preventDefault()
+
+      if (isCooldown.current) return
+      isCooldown.current = true
 
       if (isScrollingDown) {
         setActiveIndex((prev) => Math.min(prev + 1, SERVICES.length - 1))
       } else if (isScrollingUp) {
         setActiveIndex((prev) => Math.max(prev - 1, 0))
       }
+
+      setTimeout(() => {
+        isCooldown.current = false
+      }, 300)
     }
 
     const node = sectionRef.current
     if (node) {
-      // Escuchamos el evento wheel directamente con passive: false para poder usar preventDefault()
       node.addEventListener('wheel', handleWheel, { passive: false })
     }
 
@@ -106,23 +111,49 @@ export default function Services() {
           </div>
         </Reveal>
 
-        <div className="service-deck mt-7" aria-live="polite">
+        {/* Añadimos un margen superior alto (pt-16) para acomodar los bordes que asoman arriba */}
+        <div className="service-deck relative mt-7 pt-16 min-h-[520px]" aria-live="polite">
           {SERVICES.map((service, index) => {
             const theme = SERVICE_THEMES[index]
             const active = activeIndex === index
-            const distance = (index - activeIndex + SERVICES.length) % SERVICES.length
+            
+            // Distancia con respecto a la card activa
+            const isPassed = index < activeIndex
+            const isFuture = index > activeIndex
+            const depth = index - activeIndex
+
+            let y = 0
+            let scale = 1
+            let opacity = 1
+
+            if (isPassed) {
+              // Cards pasadas: caen o se ocultan abajo
+              y = 50
+              opacity = 0
+            } else if (isFuture) {
+              // Cards siguientes: se desplazan HACIA ARRIBA (-y) para asomar por la parte superior
+              y = -depth * 18 // Ajusta los píxeles según qué tanto espacio quieras ver arriba
+              scale = Math.max(0.92, 1 - depth * 0.015)
+              opacity = Math.max(0.35, 1 - depth * 0.12)
+            }
+
             return (
               <motion.article
                 key={service.id}
                 id={`service-card-${service.id}`}
                 role="tabpanel"
                 aria-hidden={!active}
-                className="service-deck__card"
-                style={{ '--service-color': theme.color, zIndex: active ? 20 : SERVICES.length - distance } as CSSProperties}
+                className="service-deck__card absolute inset-x-0 bottom-0 origin-bottom"
+                style={{
+                  '--service-color': theme.color,
+                  // Las cards siguientes se sitúan detrás en el orden de capas (zIndex)
+                  zIndex: active ? 30 : SERVICES.length - depth,
+                  pointerEvents: active ? 'auto' : 'none',
+                } as CSSProperties}
                 animate={{
-                  y: active ? 0 : 24 + Math.min(distance, 3) * 16,
-                  opacity: active ? 1 : 0.68,
-                  scale: active ? 1 : 0.985,
+                  y,
+                  opacity,
+                  scale,
                 }}
                 transition={{
                   type: 'spring',
