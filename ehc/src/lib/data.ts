@@ -141,9 +141,34 @@ export interface NavLink {
 }
 
 export const NAV_LINKS: NavLink[] = [
-  { label: 'Nosotros', href: '#nosotros' },
+  { label: 'Inicio', href: '#top' },
   { label: 'Servicios', href: '#servicios' },
-  { label: 'Training', href: '#training' },
-  { label: 'Oportunidades', href: '#oportunidades' },
-  { label: 'EHC News', href: '#blog' },
+  { label: 'Cobertura global', href: '#canales' },
+  { label: 'Nosotros', href: '#nosotros' },
+  { label: 'Contacto', href: '#contacto' },
+]
+
+export interface Partner {
+  id: string
+  name: string
+  country: string
+  city: string
+  email: string
+  phone: string
+  website?: string
+  services: string[]
+  mapX: number
+  mapY: number
+  lat: number
+  lng: number
+  geoId: string
+}
+
+export const PARTNERS: Partner[] = [
+  { id: 'certy', name: 'Certy Group', country: 'República Dominicana', city: 'Santo Domingo', email: 'rfernandez@certygroup.com', phone: '+1 809-793-1124', website: 'www.certygroup.com', services: ['Pentesting', 'Compliance', 'Forense'], mapX: 295, mapY: 185, lat: 18.49, lng: -69.93, geoId: '214' },
+  { id: 'integsa', name: 'Integsa', country: 'México', city: 'Monterrey', email: 'servicio@integsa.com.mx', phone: '+52 81 1100 1150', website: 'www.integsa.com.mx', services: ['Pentesting', 'App Sec', 'Consultoría'], mapX: 175, mapY: 175, lat: 25.69, lng: -100.32, geoId: '484' },
+  { id: 'adsi', name: 'ADSI', country: 'Estados Unidos', city: 'Miami', email: 'info@adsintl.net', phone: '+1 954 889 1366', services: ['Pentesting', 'Red Team', 'Forense'], mapX: 225, mapY: 145, lat: 25.76, lng: -80.19, geoId: '840' },
+  { id: 'infinyt', name: 'Infinyt', country: 'México', city: 'Ciudad de México', email: 'info@infinyt.mx', phone: '+52 (81) 2474-5555', website: 'infinyt.mx', services: ['App Sec', 'Wireless', 'Consultoría'], mapX: 165, mapY: 190, lat: 19.43, lng: -99.13, geoId: '484' },
+  { id: 'bushido', name: 'Bushido Security', country: 'Colombia', city: 'Bogotá', email: 'info@bushidosec.com', phone: '(+57) 3182704207', website: 'bushidosec.com', services: ['Pentesting', 'Red Team', 'Social Eng.'], mapX: 250, mapY: 260, lat: 4.71, lng: -74.07, geoId: '170' },
+  { id: 'redtiseg', name: 'REDTISEG', country: 'Bolivia', city: 'La Paz', email: 'contacto@redtiseg.com', phone: '+591 62674446', website: 'www.redtiseg.com', services: ['Compliance', 'Consultoría', 'Forense'], mapX: 255, mapY: 330, lat: -16.49, lng: -68.12, geoId: '068' },
 ]

@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-//import FluidCursor from './components/FluidCursor'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
@@ -7,6 +6,7 @@ import Services from './components/Services'
 import About from './components/About'
 import Training from './components/Training'
 import Join from './components/Join'
+import Channels from './components/Channels'
 import Blog from './components/Blog'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
@@ -22,8 +22,6 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-
-    
     let buffer = ''
     const onKey = (e: KeyboardEvent) => {
       if (e.key.length !== 1) return
@@ -42,25 +40,30 @@ export default function App() {
 
   return (
     <>
+      <a className="skip-link" href="#contenido">Saltar al contenido</a>
       {/*
         flag{Yeah! you find the EHC Flag}
         Prototipo de rediseño — EHC Group · React + TS + Tailwind
       */}
-      {/*<FluidCursor />*/}
       <Navbar onSnack={showSnack} />
-      <main>
+      <main id="contenido">
         <Hero />
         <Marquee />
         <Services />
+        <hr className="gradient-divider" />
         <About />
+        <hr className="gradient-divider--wide" />
         <Training />
         <Join />
+        <hr className="gradient-divider" />
+        <Channels onSnack={showSnack} />
+        <hr className="gradient-divider--wide" />
         <Blog />
         <Contact onSnack={showSnack} />
       </main>
       <Footer />
 
-      <div aria-live="polite" className="pointer-events-none fixed right-5 bottom-5 left-5 z-[1000] flex justify-center sm:left-auto">
+      <div aria-live="polite" className="pointer-events-none fixed right-5 bottom-5 left-5 z-[21] flex justify-center sm:left-auto">
         {snack && (
           <p className="max-w-full border border-volt bg-night px-5 py-3.5 font-code text-xs tracking-wide break-words text-white shadow-none sm:max-w-md">
             <span className="mr-2 text-volt">▮</span>

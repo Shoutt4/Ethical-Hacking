@@ -13,22 +13,26 @@ export default function Blog() {
         </Reveal>
 
         <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {POSTS.map(post => (
-            <Reveal key={post.title}>
-              <article className="group flex h-full cursor-pointer flex-col border border-edge bg-coal transition-colors duration-200 hover:border-volt">
+          {POSTS.map((post, i) => (
+            <Reveal key={post.title} className={i > 0 ? 'reveal-delay-1' : ''}>
+              <article className="blog-card group flex h-full cursor-pointer flex-col">
                 <div
-                  className={`scanlines relative h-[150px] overflow-hidden border-b border-edge ${GRADIENTS[post.grad]}`}
+                  className={`scanlines relative h-[180px] overflow-hidden border-b border-edge ${GRADIENTS[post.grad]}`}
                 >
                   <span
                     aria-hidden="true"
-                    className="absolute -right-4 -bottom-4 size-20 rotate-12 border border-volt/25 transition-transform duration-500 group-hover:rotate-45"
+                    className="absolute -right-4 -bottom-4 size-20 rotate-12 border border-volt/25 transition-transform duration-700 group-hover:rotate-45 group-hover:scale-110"
                   />
-                  <span className="absolute top-3 left-3 bg-night px-2.5 py-1 font-code text-[10px] tracking-[2px] text-volt uppercase">
+                  <span
+                    aria-hidden="true"
+                    className="absolute top-3 right-3 size-2 rounded-full bg-volt/40 transition-all duration-500 group-hover:scale-150 group-hover:bg-volt/70"
+                  />
+                  <span className="absolute top-3 left-3 bg-night/80 backdrop-blur-sm px-2.5 py-1 font-code text-[10px] tracking-[2px] text-volt uppercase">
                     {post.pill}
                   </span>
                 </div>
                 <div className="flex grow flex-col p-6">
-                  <h3 className="mb-4 font-display text-xl leading-snug tracking-wide text-white uppercase group-hover:text-volt-light">
+                  <h3 className="mb-4 font-display text-xl leading-snug tracking-wide text-white uppercase group-hover:text-volt-light transition-colors duration-300">
                     {post.title}
                   </h3>
                   <p className="mt-auto font-code text-xs text-fog">
@@ -43,7 +47,7 @@ export default function Blog() {
         <Reveal className="mt-9 text-center">
           <a
             href="#blog"
-            className="inline-block border border-edge-strong px-7 py-[15px] text-[13px] font-bold tracking-[1.5px] text-white uppercase no-underline transition-colors duration-150 hover:border-volt hover:text-volt-light"
+            className="inline-block border border-edge-strong px-7 py-[15px] text-[13px] font-bold tracking-[1.5px] text-white uppercase no-underline transition-all duration-300 hover:border-volt hover:text-volt-light hover:shadow-[0_0_20px_rgba(182,229,55,.1)]"
           >
             Ver todos los artículos →
           </a>

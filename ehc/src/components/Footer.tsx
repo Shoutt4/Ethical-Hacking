@@ -1,7 +1,4 @@
-import { NAV_LINKS } from '../lib/data'
 import { HexCheck } from './Hex'
-
-const SERVICES_FOOTER = ['Pentesting', 'App Sec', 'Wireless', 'Social Eng.', 'Compliance', 'Forense']
 
 export default function Footer() {
   return (
