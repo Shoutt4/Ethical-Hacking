@@ -2,7 +2,6 @@ import { useState } from 'react'
 import type { CSSProperties } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { SERVICES } from '../lib/data'
-import AsciiDots from './AsciiDots'
 import Reveal from './Reveal'
 
 const SERVICE_THEMES = [
@@ -20,7 +19,7 @@ export default function Services() {
 
   return (
     <section id="servicios" className="relative scroll-mt-24 overflow-hidden bg-[linear-gradient(180deg,#102129_0%,#071117_30%)] py-28 md:py-40">
-      <AsciiDots className="ascii-dots--services" />
+  
       <div className="relative mx-auto w-full max-w-7xl px-5 md:px-8">
         <Reveal>
           <p className="section-eyebrow">/ 02 · Servicios</p>
