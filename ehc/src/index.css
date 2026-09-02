@@ -191,6 +191,25 @@ body::before {
   bottom: 13%;
 }
 
+.hero-logo {
+  transform-style: preserve-3d;
+  transform-origin: center;
+  will-change: transform, filter;
+  filter: drop-shadow(0 1.1rem 1.35rem rgb(182 229 55 / 0.72))
+    drop-shadow(0 0 1.4rem rgb(182 229 55 / 0.58));
+  animation: hero-logo-float 5s ease-in-out infinite;
+}
+
+@keyframes hero-logo-float {
+  0%,
+  100% {
+    transform: perspective(900px) translateY(0) rotateX(5deg) rotateY(-8deg);
+  }
+  50% {
+    transform: perspective(900px) translateY(-1.15rem) rotateX(-6deg) rotateY(9deg);
+  }
+}
+
 .island-nav {
   position: fixed;
   z-index: 30;

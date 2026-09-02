@@ -3,18 +3,18 @@ import Reveal from './Reveal'
 const MILESTONES = [
   {
     year: '2001',
-    title: 'Nace EHC',
-    text: 'Comenzamos como un equipo pequeño de hackers éticos con una obsesión: adelantarnos a los atacantes reales.',
+    title: 'Nace EHC Group',
+    text: 'con el objetivo de gestionar proyectos integrales de seguridad de la información, abarcando desde el análisis de sistemas hasta la implementación de soluciones que integran tecnología, procesos y personal.',
   },
   {
     year: '2016',
     title: 'Expansión regional',
-    text: 'EHC Group se consolida como holding con operaciones en 7 países y laboratorios propios de investigación.',
+    text: 'EHC Group se consolida como holding internacional de empresas de alta seguridad tecnológica con presencia en Estados Unidos y siete países de Latinoamérica.',
   },
   {
     year: 'HOY',
-    title: 'Seguridad continua',
-    text: 'Más de dos décadas protegiendo infraestructura crítica, banca y gobiernos con metodologías ofensivas.',
+    title: 'Especialidades de EHC Group',
+    text: 'penetración (pentesting) para aplicaciones e infraestructuras críticas, junto con un fuerte enfoque en seguridad bancaria y de cajeros automáticos (ATMs). A nivel estratégico operan bajo la normativa ISO 27001 y protegen infraestructuras de gobierno, complementando su oferta con servicios de defensa y respuesta de alta complejidad, como los Centros de Operaciones de Seguridad (Cyber SOC), la informática forense y la inteligencia informática.',
   },
 ]
 
@@ -25,7 +25,7 @@ export default function About() {
         <Reveal>
           <p className="font-code text-xs tracking-[3px] text-volt-light">// NOSOTROS</p>
           <h2 className="mt-3 font-display text-[clamp(30px,4.5vw,54px)] leading-[1.02] tracking-wide text-white uppercase">
-            25+ años pensando
+            25+ años de experiencia
             <br />
             <span className="text-volt">como atacantes</span>
           </h2>
