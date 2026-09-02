@@ -10,6 +10,7 @@ import Channels from './components/Channels'
 import Blog from './components/Blog'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import Partners from './components/Partners'
 
 export default function App() {
   const [snack, setSnack] = useState<string | null>(null)
@@ -49,6 +50,7 @@ export default function App() {
       <main id="contenido">
         <Hero />
         <Marquee />
+        <Partners />
         <Services />
         <hr className="gradient-divider" />
         <About />
