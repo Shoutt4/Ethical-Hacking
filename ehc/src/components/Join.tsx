@@ -4,7 +4,7 @@ export default function Join() {
   return (
     <section id="oportunidades" className="scroll-mt-24 border-t border-edge bg-coal py-4 md:py-2">
       <div className="mx-auto w-full max-w-6xl  text-center md:px-4">
-        <Hex className="mx-auto mb-6 size-55 animate-[spin_1.4s_linear_infinite] text-volt" />
+        <Hex className="mx-auto mb-6 size-55  text-volt" />
         <h2 className="font-display text-[clamp(30px,4.5vw,54px)] leading-[1.02] tracking-wide text-white uppercase">
           UNETE A NOSOTROS
         </h2>
