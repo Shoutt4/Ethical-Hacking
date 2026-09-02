@@ -898,8 +898,7 @@ body::before {
     height: 25rem;
   }
 }
-
-/* ── trust marquee (Empresas que confían en nosotros) ─────── */
+ 
 .trust-clip {
   --cut: 2.2rem;
   clip-path: polygon(
@@ -913,7 +912,7 @@ body::before {
   display: flex;
   width: max-content;
   align-items: center;
-  gap: 3rem;
+  gap: 1rem;
   will-change: transform;
 }
 .trust-track:hover {
@@ -931,8 +930,8 @@ body::before {
 
 .trust-logo img {
   display: block;
-  max-width: 290px;
-  max-height: 125px;
+  max-width: 490px;
+  max-height: 325px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -943,7 +942,7 @@ body::before {
     --cut: 1.3rem;
   }
   .trust-track {
-    gap: 2.25rem;
+    gap: 0.25rem;
   }
   .trust-logo {
     width: 210px;

@@ -49,7 +49,7 @@ export default function App() {
       <Navbar onSnack={showSnack} />
       <main id="contenido">
         <Hero />
-        <Marquee />
+        
         <Partners />
         <Services />
         <hr className="gradient-divider" />

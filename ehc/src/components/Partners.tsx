@@ -25,7 +25,7 @@ export default function Partners() {
   return (
     <section
       aria-label="Empresas que confían en nosotros"
-      className="trust-clip relative scroll-mt-24 bg-white py-12 md:py-16"
+      className="trust-clip relative scroll-mt-24 bg-white py-12 md:py-10"
     >
       <span
         aria-hidden="true"
@@ -46,7 +46,7 @@ export default function Partners() {
       </div>
 
       <div
-        className="relative mx-auto mt-8 w-full max-w-7xl overflow-hidden md:mt-10"
+        className="relative mx-auto mt-8 w-full max-w-7xl overflow-hidden md:mt-1"
         style={{
           maskImage:
             "linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)",
