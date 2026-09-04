@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Marquee from './components/Marquee'
+ 
 import Services from './components/Services'
 import About from './components/About'
 import Training from './components/Training'
-import Join from './components/Join'
+import Products from './components/Products'
 import Channels from './components/Channels'
 import Blog from './components/Blog'
 import Contact from './components/Contact'
@@ -52,11 +52,11 @@ export default function App() {
         
         <Partners />
         <Services />
+        <Products />
         <hr className="gradient-divider" />
         <About />
         <hr className="gradient-divider--wide" />
         <Training />
-        <Join />
         <hr className="gradient-divider" />
         <Channels onSnack={showSnack} />
         <hr className="gradient-divider--wide" />

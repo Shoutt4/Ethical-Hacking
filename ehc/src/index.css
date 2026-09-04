@@ -16,13 +16,13 @@
   --color-volt-light: #d4f87a;
   --color-volt-dim: #789d20;
   --animate-marquee: marquee 70s linear infinite;
---animate-marquee-slow: marquee 110s linear infinite;
+  --animate-marquee-slow: marquee 110s linear infinite;
 
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
   }
-}
 }
 
 :root {
@@ -214,7 +214,8 @@ body::before {
     transform: perspective(900px) translateY(0) rotateX(5deg) rotateY(-8deg);
   }
   50% {
-    transform: perspective(900px) translateY(-1.15rem) rotateX(-6deg) rotateY(9deg);
+    transform: perspective(900px) translateY(-1.15rem) rotateX(-6deg)
+      rotateY(9deg);
   }
 }
 
@@ -898,7 +899,7 @@ body::before {
     height: 25rem;
   }
 }
- 
+
 .trust-clip {
   --cut: 2.2rem;
   clip-path: polygon(
@@ -954,14 +955,41 @@ body::before {
   }
 
   @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  :root {
-    --animate-marquee: marquee 180s linear infinite;
-    --animate-marquee-slow: marquee 300s linear infinite;
+    html {
+      scroll-behavior: auto;
+    }
+    :root {
+      --animate-marquee: marquee 180s linear infinite;
+      --animate-marquee-slow: marquee 300s linear infinite;
+    }
   }
 }
+
+/* ── horizontal timeline (Nosotros) ──── */
+.timeline-track {
+  scrollbar-width: thin;
+  scrollbar-color: #426068 transparent;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
 }
-
-
+.timeline-track::-webkit-scrollbar {
+  height: 6px;
+}
+.timeline-track::-webkit-scrollbar-thumb {
+  background: #426068;
+  border-radius: 999px;
+}
+.timeline-track::-webkit-scrollbar-track {
+  background: transparent;
+}
+.timeline-item {
+  scroll-snap-align: start;
+  height: 100%;
+}
+.timeline-year {
+  scroll-margin: 0;
+}
+.timeline-node {
+  position: relative;
+  flex-shrink: 0;
+}

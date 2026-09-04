@@ -1,5 +1,6 @@
 export type AccentKey = 'green' | 'blue' | 'teal' | 'red' | 'yellow' | 'grey'
-
+import logoPentest from '../assets/products/pentest.png'
+import logoSealpath from '../assets/products/sealpath.webp'
 export const ACCENTS: Record<AccentKey, { hex: string; dim: string }> = {
   green: { hex: '#7FCC27', dim: '#4A7A17' },
   blue: { hex: '#5088F5', dim: '#2C4E8F' },
@@ -18,6 +19,40 @@ export interface Service {
   meta: string[]
   accent: AccentKey
 }
+
+export interface Milestone {
+  id: string
+  year: string
+  title: string
+  text: string
+}
+
+export const MILESTONES: Milestone[] = [
+  {
+    id: 'm1',
+    year: '2001',
+    title: 'Nace EHC Group',
+    text: 'Iniciamos gestionando proyectos integrales de seguridad de la información: análisis de sistemas, implementación de soluciones y procesos que integran tecnología, procesos y personas.',
+  },
+  {
+    id: 'm2',
+    year: '2016',
+    title: 'Expansión regional',
+    text: 'Nos consolidamos como holding internacional de alta seguridad tecnológica con presencia en Estados Unidos y siete países de Latinoamérica.',
+  },
+  {
+    id: 'm3',
+    year: 'ESPECIALIDADES',
+    title: 'Pentesting & ATM Security',
+    text: 'Penetración en aplicaciones e infraestructuras críticas, con un fuerte enfoque en seguridad bancaria y de cajeros automáticos (ATMs).',
+  },
+  {
+    id: 'm4',
+    year: 'HOY',
+    title: 'ISO 27001 · Cyber SOC',
+    text: 'Operamos bajo normativa ISO 27001 y protegemos infraestructuras de gobierno, con Cyber SOC, informática forense e inteligencia informática.',
+  },
+]
 
 export const SERVICES: Service[] = [
   {
@@ -144,9 +179,95 @@ export interface NavLink {
 export const NAV_LINKS: NavLink[] = [
   { label: 'Inicio', href: '#top' },
   { label: 'Servicios', href: '#servicios' },
-  { label: 'Cobertura global', href: '#canales' },
+  { label: 'Soluciones', href: '#productos' },
   { label: 'Nosotros', href: '#nosotros' },
+  { label: 'Capacitación', href: '#training' },
+  { label: 'Cobertura global', href: '#canales' },
+  { label: 'Blog', href: '#blog' },
   { label: 'Contacto', href: '#contacto' },
+]
+
+export type ProductStatus = 'live' | 'maintenance'
+
+export interface Product {
+  id: string
+  title: string
+  subtitle: string
+  features: string[]
+  url: string
+  urlLabel?: string
+  logo: string
+  logoAlt: string
+  plate: 'light' | 'dark'
+  status: ProductStatus
+}
+
+export const PRODUCTS: Product[] = [
+  {
+    id: 'p1',
+    title: 'Pentest365',
+    subtitle: 'Solución de Pentesting Persistente en la Nube',
+    features: [
+      'Monitoreo de Seguridad y Amenazas 24/7',
+      'Identificación de tecnologías web y búsqueda de exploits',
+      'Dashboard de resultados y alertas',
+      'Descubrimiento de dispositivos IoT',
+    ],
+    url: 'https://pentest365.io/',
+    logo: logoPentest,
+    logoAlt: 'Logo Pentest365',
+    plate: 'light',
+    status: 'live',
+  },
+  {
+    id: 'p2',
+    title: 'Firmanza',
+    subtitle: 'Tu firma de confianza',
+    features: [
+      'Firma electrónica de documentos',
+      'Correo electrónico certificado',
+      'Testigo Digital Online (Notario Web)',
+      'Firma Electrónica de Transacciones',
+      'Timbrado de Factura Electrónica',
+      'Sellos HTTP Seguros',
+    ],
+    url: 'https://firmanza.com/',
+    logo: 'https://firmanza.com/brand/og.png',
+    logoAlt: 'Logo Firmanza',
+    plate: 'light',
+    status: 'live',
+  },
+  {
+    id: 'p3',
+    title: 'Blackfog',
+    subtitle: 'Herramienta de seguridad y privacidad',
+    features: [
+      'Asegura tus equipos y datos remotos',
+      'Protección 100% sin archivos',
+      'Múltiples capas de defensa',
+      'Protección contra ransomware, privacidad del dispositivo y criptojacking',
+    ],
+    url: 'https://www.blackfog.com/',
+    logo: 'https://privacy.blackfog.com/wp-content/uploads/2025/03/BF-Primary-Logo-Inverse-e1742569299728.png',
+    logoAlt: 'Logo BlackFog',
+    plate: 'dark',
+    status: 'live',
+  },
+  {
+    id: 'p4',
+    title: 'SealPath',
+    subtitle: 'Herramienta de seguridad centrada en datos',
+    features: [
+      'Protege y controla datos corporativos donde viajen',
+      'Controla quién accede, cuándo y con qué permisos',
+      'Visualiza detalles de accesos al documento',
+    ],
+    url: 'https://sealpath.com/',
+    logo: logoSealpath,
+    logoAlt: 'Logo SealPath',
+    plate: 'light',
+    status: 'live',
+  },
 ]
 
 export interface Partner {
