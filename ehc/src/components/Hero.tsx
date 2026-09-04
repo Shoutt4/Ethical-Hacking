@@ -12,7 +12,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="hero-bg relative grid min-h-[100dvh] items-center overflow-hidden pt-24"
+      className="hero-bg relative grid min-h-[100dvh] items-center overflow-hidden pt-6 "
     >
       <AsciiDots
         className="ascii-section-bg"
@@ -20,7 +20,7 @@ export default function Hero() {
         textColor="182, 229, 55"
       /> 
       <div className="hero-line" aria-hidden="true" />
-      <div className="relative z-1 mx-auto grid w-full max-w-7xl items-center gap-12 px-5 py-20 md:px-8 lg:grid-cols-[.92fr_1.08fr] lg:gap-4">
+      <div className="relative z-1 mx-auto grid w-full max-w-[90rem] items-center gap-8 px-5 py-16 md:px-8 lg:grid-cols-[1.15fr_.85fr] lg:gap-2">
         <div>
           <Reveal>
             <p className="section-eyebrow">
@@ -38,20 +38,20 @@ export default function Hero() {
               Evaluamos, explotamos de forma controlada y priorizamos cada
               brecha para que puedas decidir y actuar con evidencia.
             </p>
-            <div className="mt-9 flex flex-wrap gap-3">
+            <div className="mt-4 flex flex-wrap gap-3">
               <a href="#contacto" className="cta-primary">
                 Solicitar evaluación{" "}
                 <span className="cta-primary__arrow">↗</span>
               </a>
               <a href="#servicios" className="cta-secondary">
-                Explorar servicios
+              Explorar servicios
               </a>
             </div>
           </Reveal>
         </div>
 
         {/* Círculo con el logo superpuesto en el centro */}
-        <Reveal className="relative hidden justify-self-end lg:block">
+        <Reveal className=" relative hidden justify-self-end lg:block">
           <div className="relative flex items-center justify-center">
             <div
               className="perimeter"

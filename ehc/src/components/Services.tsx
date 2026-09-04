@@ -1,6 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
 import type { CSSProperties } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
 import { SERVICES } from '../lib/data'
 import Reveal from './Reveal'
 
@@ -14,63 +12,13 @@ const SERVICE_THEMES = [
 ]
 
 export default function Services() {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const reduceMotion = useReducedMotion()
-  const sectionRef = useRef<HTMLDivElement>(null)
-  const isTargetingSection = useRef(false)
-  const isCooldown = useRef(false)
-
-  // Captura el evento del ratón para alternar la card activa
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      if (!isTargetingSection.current) return
-
-      const isScrollingDown = e.deltaY > 0
-      const isScrollingUp = e.deltaY < 0
-
-      // Si estamos en la primera card y el usuario sube, permite el scroll normal de la web
-      if (activeIndex === 0 && isScrollingUp) return
-      // Si estamos en la última card y el usuario baja, permite el scroll normal de la web
-      if (activeIndex === SERVICES.length - 1 && isScrollingDown) return
-
-      e.preventDefault()
-
-      if (isCooldown.current) return
-      isCooldown.current = true
-
-      if (isScrollingDown) {
-        setActiveIndex((prev) => Math.min(prev + 1, SERVICES.length - 1))
-      } else if (isScrollingUp) {
-        setActiveIndex((prev) => Math.max(prev - 1, 0))
-      }
-
-      setTimeout(() => {
-        isCooldown.current = false
-      }, 300)
-    }
-
-    const node = sectionRef.current
-    if (node) {
-      node.addEventListener('wheel', handleWheel, { passive: false })
-    }
-
-    return () => {
-      if (node) {
-        node.removeEventListener('wheel', handleWheel)
-      }
-    }
-  }, [activeIndex])
-
   return (
     <section
-      ref={sectionRef}
       id="servicios"
-      onMouseEnter={() => (isTargetingSection.current = true)}
-      onMouseLeave={() => (isTargetingSection.current = false)}
-      className="relative scroll-mt-24 overflow-hidden bg-[linear-gradient(180deg,#102129_0%,#071117_30%)] py-28 md:py-40"
+      className="relative scroll-mt-24 bg-[linear-gradient(180deg,#102129_0%,#071117_30%)] py-28 md:py-40"
     >
-       
-      <div className="relative mx-auto w-full max-w-7xl px-5 md:px-8">
+
+      <div className="relative mx-auto w-full max-w-[98rem] px-4 sm:px-6 md:px-8">
         <Reveal>
           <p className="section-eyebrow">/ 02 · Servicios</p>
           <div className="mt-7 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
@@ -80,121 +28,104 @@ export default function Services() {
                 Una capa de seguridad por cada superficie expuesta. Selecciona un módulo para explorar cómo trabajamos.
               </p>
             </div>
-            <p className="font-code text-[10px] tracking-[.16em] text-fog uppercase">
-              {String(activeIndex + 1).padStart(2, '0')} / {String(SERVICES.length).padStart(2, '0')}
-            </p>
           </div>
         </Reveal>
 
+  
         <Reveal delay={0.12}>
-          <div className="service-tabs mt-12" role="tablist" aria-label="Módulos de servicio">
+          <div className="service-tabs sticky top-6 z-50 mt-12 bg-[#071117]/80 backdrop-blur-md py-3 rounded-xl border border-white/10" role="tablist">
             {SERVICES.map((service, index) => {
-              const theme = SERVICE_THEMES[index]
-              const active = activeIndex === index
+              const theme = SERVICE_THEMES[index] || SERVICE_THEMES[0]
               return (
-                <button
+                <a
                   key={service.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={active}
-                  aria-controls={`service-card-${service.id}`}
-                  onClick={() => setActiveIndex(index)}
-                  className="service-tab"
+                  href={`#service-card-${service.id}`}
+                  className="service-tab inline-flex items-center gap-2 px-4 py-2 text-sm text-mist hover:text-white transition-colors"
                   style={{ '--service-color': theme.color } as CSSProperties}
                 >
                   <span className="service-tab__icon" aria-hidden="true">{theme.icon}</span>
                   <span className="service-tab__label">{service.tab}</span>
-                </button>
+                </a>
               )
             })}
           </div>
         </Reveal>
 
-        {/* Añadimos un margen superior alto (pt-16) para acomodar los bordes que asoman arriba */}
-        <div  className="service-deck relative mt-7 min-h-[700px] pt-16 sm:min-h-[620px] md:min-h-[580px] lg:min-h-[520px]"
-  aria-live="polite">
+
+        <div className="mt-12 flex flex-col gap-12 pb-24">
           {SERVICES.map((service, index) => {
-            const theme = SERVICE_THEMES[index]
-            const active = activeIndex === index
+            const theme = SERVICE_THEMES[index] || SERVICE_THEMES[0]
             
-            // Distancia con respecto a la card activa
-            const isPassed = index < activeIndex
-            const isFuture = index > activeIndex
-            const depth = index - activeIndex
-
-            let y = 0
-            let scale = 1
-            let opacity = 1
-
-            if (isPassed) {
-              // Cards pasadas: caen o se ocultan abajo
-              y = 50
-              opacity = 0
-            } else if (isFuture) {
-              // Cards siguientes: se desplazan HACIA ARRIBA (-y) para asomar por la parte superior
-              y = -depth * 18 // Ajusta los píxeles según qué tanto espacio quieras ver arriba
-              scale = Math.max(0.92, 1 - depth * 0.015)
-              opacity = Math.max(0.35, 1 - depth * 0.12)
-            }
+           
+            const stickyTopSpace = 100 + index * 42
 
             return (
-              <motion.article
+              <article
                 key={service.id}
                 id={`service-card-${service.id}`}
-                role="tabpanel"
-                aria-hidden={!active}
-                className="service-deck__card absolute inset-x-0 bottom-0 origin-bottom"
+                className="sticky rounded-2xl border border-white/10 bg-[#0b171d] shadow-2xl overflow-hidden transition-all duration-300"
                 style={{
+                  top: `${stickyTopSpace}px`,
+                  zIndex: index + 10,
                   '--service-color': theme.color,
-                  // Las cards siguientes se sitúan detrás en el orden de capas (zIndex)
-                  zIndex: active ? 30 : SERVICES.length - depth,
-                  pointerEvents: active ? 'auto' : 'none',
                 } as CSSProperties}
-                animate={{
-                  y,
-                  opacity,
-                  scale,
-                }}
-                transition={{
-                  type: 'spring',
-                  stiffness: reduceMotion ? 1000 : 220,
-                  damping: reduceMotion ? 100 : 24,
-                  mass: 0.72,
-                }}
               >
-                <div className="relative z-10 flex h-full flex-col justify-between p-7 sm:p-10 md:p-12">
+              
+                <div 
+                  className="flex items-center justify-between px-8 py-3 border-b border-white/10 bg-white/[0.02]"
+                  style={{ borderTop: `3px solid ${theme.color}` }}
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="font-code text-xs text-white/60 uppercase">
+                      {service.num} · {theme.label}
+                    </span>
+                    <span className="text-sm font-semibold text-white tracking-wide">
+                      {service.tab}
+                    </span>
+                  </div>
+                  <span style={{ color: theme.color }}>{theme.icon}</span>
+                </div>
+
+             
+                <div className="relative z-10 flex flex-col justify-between p-7 sm:p-10 md:p-14 min-h-[420px]">
                   <div className="flex items-start justify-between gap-8">
                     <div>
-                      <p className="font-code text-[10px] tracking-[.18em] text-fog uppercase">
-                        {service.num} · {theme.label}
-                      </p>
-                      <h3 className="mt-5 max-w-[18ch] font-display text-[clamp(2rem,4vw,4.25rem)] leading-[.92] tracking-[-.065em] text-white">
+                      <h3 className="max-w-[28ch] font-display text-[clamp(1.75rem,3.5vw,3.5rem)] leading-[.95] tracking-[-.05em] text-white">
                         {service.title}
                       </h3>
                     </div>
                     <span
-                      className="grid size-12 shrink-0 place-items-center border border-current text-xl"
-                      style={{ color: theme.color }}
+                      className="grid size-12 shrink-0 place-items-center rounded-lg border border-current text-xl shadow-lg"
+                      style={{ color: theme.color, borderColor: `${theme.color}40` }}
                       aria-hidden="true"
                     >
                       {theme.icon}
                     </span>
                   </div>
-                  <div className="mt-9 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-                    <p className="max-w-[70ch] text-base leading-7 text-mist md:text-lg">{service.desc}</p>
-                    <a href="#contacto" className="cta-primary w-fit" style={{ backgroundColor: theme.color }}>
+
+                  <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+                    <p className="max-w-[85ch] text-base leading-7 text-mist md:text-lg">{service.desc}</p>
+                    <a 
+                      href="#contacto" 
+                      className="cta-primary w-fit transition-transform hover:scale-105" 
+                      style={{ backgroundColor: theme.color }}
+                    >
                       Solicitar evaluación <span className="cta-primary__arrow">↗</span>
                     </a>
                   </div>
+
                   <ul className="mt-8 flex list-none flex-wrap gap-2 p-0">
                     {service.meta.map((tag) => (
-                      <li key={tag} className="border border-white/12 px-3 py-1.5 font-code text-[10px] tracking-[.12em] text-mist uppercase">
+                      <li 
+                        key={tag} 
+                        className="rounded border border-white/10 bg-white/5 px-3 py-1.5 font-code text-[10px] tracking-[.12em] text-mist uppercase"
+                      >
                         {tag}
                       </li>
                     ))}
                   </ul>
                 </div>
-              </motion.article>
+              </article>
             )
           })}
         </div>
