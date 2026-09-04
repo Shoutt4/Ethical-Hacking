@@ -8,11 +8,10 @@ export default function Training() {
         <Reveal>
           <p className="font-code text-xs tracking-[3px] text-volt-light">// TRAINING</p>
           <h2 className="mt-3 font-display text-[clamp(30px,4.5vw,54px)] leading-[1.02] tracking-wide text-white uppercase">
-            Formamos a los buenos
+            Capacitate con nosotros
           </h2>
           <p className="mt-4 max-w-xl font-josef text-lg font-light text-mist">
-            Cursos oficiales y certificaciones propias, dictados por los mismos consultores que atacan sistemas
-            productivos todos los días.
+            Cursos oficiales y certificaciones propias, por profesionales capacitados.
           </p>
         </Reveal>
 

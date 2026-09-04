@@ -20,7 +20,9 @@ export default function Hero() {
         textColor="182, 229, 55"
       /> 
       <div className="hero-line" aria-hidden="true" />
-      <div className="relative z-1 mx-auto grid w-full max-w-[90rem] items-center gap-8 px-5 py-16 md:px-8 lg:grid-cols-[1.15fr_.85fr] lg:gap-2">
+      
+      {/* CAMBIO AQUÍ: Se modificaron las proporciones de las columnas (lg:grid-cols-[1.3fr_.7fr]) y se redujo el gap (lg:gap-1) para juntarlos */}
+      <div className="relative z-1 mx-auto grid w-full max-w-[90rem] items-center gap-8 px-5 pt-16 pb-2 md:px-8 lg:grid-cols-[1.3fr_.7fr] lg:gap-1">
         <div>
           <Reveal>
             <p className="section-eyebrow">
@@ -28,7 +30,7 @@ export default function Hero() {
             </p>
           </Reveal>
           <Reveal className="reveal-delay-1">
-            <h1 className="mt-7 font-display text-[clamp(3.5rem,7vw,7.2rem)] font-medium leading-[.87] tracking-[-.020em] text-white">
+            <h1 className="mt-7 font-display text-[clamp(3.5rem,6.5vw,6.5rem)] font-medium leading-[.87] tracking-[-.020em] text-white">
               Probamos tus defensas antes que un{" "}
               <span className="text-volt">atacante.</span>
             </h1>
@@ -38,7 +40,7 @@ export default function Hero() {
               Evaluamos, explotamos de forma controlada y priorizamos cada
               brecha para que puedas decidir y actuar con evidencia.
             </p>
-            <div className="mt-4 flex flex-wrap gap-3">
+            <div className="mt-5 flex flex-wrap gap-3">
               <a href="#contacto" className="cta-primary">
                 Solicitar evaluación{" "}
                 <span className="cta-primary__arrow">↗</span>
@@ -71,10 +73,10 @@ export default function Hero() {
         </Reveal>
       </div>
 
-      <dl className="relative z-1 mx-auto flex w-full max-w-7xl flex-wrap gap-x-12 gap-y-5 px-5 pb-9 md:px-8">
+      <dl className=" relative z-1 mx-auto flex w-full max-w-7xl flex-wrap gap-x-10 gap-y-5 px-5 pb-9 md:px-99">
         {STATS.map((stat) => (
           <div key={stat.label} className="min-w-30 border-t border-edge pt-3">
-            <dt className="font-code text-[10px] tracking-[.15em] text-fog uppercase">
+            <dt className="font-code text-[20px] tracking-[.15em] text-fog uppercase">
               {stat.label}
             </dt>
             <dd className="mt-1 font-display text-2xl tracking-[-.05em] text-white">
