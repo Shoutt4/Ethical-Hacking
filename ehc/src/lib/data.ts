@@ -25,8 +25,9 @@ export const SERVICES: Service[] = [
     num: '01',
     tab: 'Pentesting',
     title: 'Pentesting externo e interno',
-    desc: 'Simulamos ataques reales sobre tu infraestructura para descubrir y explotar vulnerabilidades antes que un adversario: perímetro, nube, red interna y Active Directory.',
-    meta: ['Perímetro', 'Cloud', 'Active Directory', 'Red Team'],
+    desc: 'Estos servicios, también conocidos como Ethical Hacking, abarcan pruebas de intrusión tanto externas como internas, así como evaluaciones a redes wireless y sistemas críticos como SAP y SCADA. Adicionalmente, el equipo realiza pruebas de ingeniería social y pentesting altamente especializado en cajeros automáticos (ATMs) para identificar brechas antes de que sean explotadas.'
+    ,
+    meta: ['Pruebas de Intrusión Externas e Internas', 'Evaluación en Redes Wireless y Sistemas SCADA / SAP.', 'Pruebas de Ingeniería Social.', 'Pentesting en Cajeros ATM.'],
     accent: 'green',
   },
   {

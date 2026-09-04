@@ -111,7 +111,8 @@ export default function Services() {
         </Reveal>
 
         {/* Añadimos un margen superior alto (pt-16) para acomodar los bordes que asoman arriba */}
-        <div className="service-deck relative mt-7 pt-16 min-h-[520px]" aria-live="polite">
+        <div  className="service-deck relative mt-7 min-h-[700px] pt-16 sm:min-h-[620px] md:min-h-[580px] lg:min-h-[520px]"
+  aria-live="polite">
           {SERVICES.map((service, index) => {
             const theme = SERVICE_THEMES[index]
             const active = activeIndex === index
