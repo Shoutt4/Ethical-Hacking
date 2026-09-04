@@ -3,12 +3,12 @@ import { SERVICES } from '../lib/data'
 import Reveal from './Reveal'
 
 const SERVICE_THEMES = [
-  { color: '#ef5d61', icon: '⌁', label: 'Offensive' },
-  { color: '#e8efef', icon: '</>', label: 'Application' },
-  { color: '#4d8fff', icon: '◉', label: 'Wireless' },
-  { color: '#69d99a', icon: '⌁', label: 'Human layer' },
-  { color: '#ffb020', icon: '✓', label: 'Governance' },
-  { color: '#c7844b', icon: '◇', label: 'Response' },
+  { color: '#ef5d61', icon: '⌁', label: 'Ofensiva' },
+  { color: '#e8efef', icon: '</>', label: 'BANCARIA' },
+  { color: '#4d8fff', icon: '◉', label: 'RESPUESTA' },
+  { color: '#69d99a', icon: '⌁', label: 'LEGAL' },
+  { color: '#ffb020', icon: '✓', label: 'GOBERNANZA' },
+  { color: '#c7844b', icon: '◇', label: 'INTELIGENCIA' },
 ]
 
 export default function Services() {
