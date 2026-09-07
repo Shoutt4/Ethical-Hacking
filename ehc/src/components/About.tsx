@@ -24,11 +24,7 @@ export default function About() {
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="max-w-md text-lg leading-relaxed font-light text-mist">
-              Somos consultores certificados, investigadores y ex-bug hunters.
-              Nuestra metodología combina frameworks reconocidos con tácticas
-              reales de adversarios para entregarte hallazgos accionables.
-            </p>
+            
           </Reveal>
         </div>
 

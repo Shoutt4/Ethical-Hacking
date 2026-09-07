@@ -18,15 +18,13 @@ export default function Services() {
       className="relative scroll-mt-24 bg-[linear-gradient(180deg,#102129_0%,#071117_30%)] py-28 md:py-40"
     >
 
-      <div className="relative mx-auto w-full max-w-[98rem] px-4 sm:px-6 md:px-8">
+      <div className="relative mx-auto w-full max-w-[98rem] px-2 sm:px-2 md:px-8">
         <Reveal>
           <p className="section-eyebrow">/ 02 · Servicios</p>
           <div className="mt-7 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <div>
               <h2 className="section-title">La evidencia antes que la intuición.</h2>
-              <p className="mt-6 max-w-[57ch] text-lg leading-8 text-mist">
-                Una capa de seguridad por cada superficie expuesta. Selecciona un módulo para explorar cómo trabajamos.
-              </p>
+              
             </div>
           </div>
         </Reveal>
@@ -87,7 +85,7 @@ export default function Services() {
                 </div>
 
              
-                <div className="relative z-10 flex flex-col justify-between p-7 sm:p-10 md:p-14 min-h-[420px]">
+                <div className="relative z-10 flex flex-col justify-between p-7 sm:p-10 md:p-14 min-h-[300px]">
                   <div className="flex items-start justify-between gap-8">
                     <div>
                       <h3 className="max-w-[28ch] font-display text-[clamp(1.75rem,3.5vw,3.5rem)] leading-[.95] tracking-[-.05em] text-white">
