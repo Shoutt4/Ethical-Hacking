@@ -77,9 +77,6 @@ export default function Contact({ onSnack }: ContactProps) {
 
     const next: FieldErrors = {}
 
-    // =========================
-    // VALIDACIONES
-    // =========================
 
     if (!fields.nombre.trim()) {
       next.nombre = 'Ingresa tu nombre.'
@@ -114,9 +111,6 @@ export default function Contact({ onSnack }: ContactProps) {
       return
     }
 
-    // =========================
-    // ENVIANDO
-    // =========================
 
     setLoading(true)
 
@@ -153,9 +147,7 @@ export default function Contact({ onSnack }: ContactProps) {
         }
       )
 
-      // =========================
-      // RESPUESTA EXITOSA
-      // =========================
+
 
       if (response.ok) {
         setFields(INITIAL)
@@ -167,10 +159,6 @@ export default function Contact({ onSnack }: ContactProps) {
 
         return
       }
-
-      // =========================
-      // ERROR DE FORMSPREE
-      // =========================
 
       const data =
         await response
@@ -186,10 +174,7 @@ export default function Contact({ onSnack }: ContactProps) {
         'No se pudo enviar el mensaje. Inténtalo nuevamente.'
       )
     } catch (error) {
-      // =========================
-      // ERROR DE RED
-      // =========================
-
+ 
       console.error(
         'Error enviando formulario:',
         error
@@ -209,10 +194,6 @@ export default function Contact({ onSnack }: ContactProps) {
       className="scroll-mt-24 border-t border-edge bg-coal py-24 md:py-32"
     >
       <div className="mx-auto grid w-full max-w-6xl gap-14 px-5 md:grid-cols-[1fr_1.2fr] md:gap-20 md:px-8">
-
-        {/* =========================
-            INFORMACIÓN
-        ========================= */}
 
         <Reveal>
           <p className="font-code text-xs tracking-[3px] text-volt-light">
@@ -238,9 +219,7 @@ export default function Contact({ onSnack }: ContactProps) {
           </ul>
         </Reveal>
 
-        {/* =========================
-            FORMULARIO
-        ========================= */}
+
 
         <Reveal>
           <form
@@ -249,7 +228,6 @@ export default function Contact({ onSnack }: ContactProps) {
             className="flex flex-col gap-4 border border-edge bg-night p-6 md:p-9"
           >
 
-            {/* NOMBRE */}
 
             <label
               htmlFor="f-nombre"
@@ -279,11 +257,10 @@ export default function Contact({ onSnack }: ContactProps) {
               </p>
             )}
 
-            {/* EMAIL + EMPRESA */}
 
             <div className="grid gap-4 sm:grid-cols-2 sm:gap-x-4">
 
-              {/* EMAIL */}
+
 
               <span className="flex flex-col gap-4">
                 <label
@@ -309,7 +286,6 @@ export default function Contact({ onSnack }: ContactProps) {
                 />
               </span>
 
-              {/* EMPRESA */}
 
               <span className="flex flex-col gap-4">
                 <label
@@ -338,7 +314,6 @@ export default function Contact({ onSnack }: ContactProps) {
               </p>
             )}
 
-            {/* PAÍS */}
 
             <label
               htmlFor="f-pais"
@@ -368,7 +343,6 @@ export default function Contact({ onSnack }: ContactProps) {
               <option>Otro</option>
             </select>
 
-            {/* MENSAJE */}
 
             <label
               htmlFor="f-mensaje"
@@ -398,8 +372,7 @@ export default function Contact({ onSnack }: ContactProps) {
               </p>
             )}
 
-            {/* PRIVACIDAD */}
-
+         
             <label
               htmlFor="f-privacidad"
               className={`flex cursor-pointer items-center gap-3 ${
@@ -430,7 +403,7 @@ export default function Contact({ onSnack }: ContactProps) {
               </p>
             )}
 
-            {/* BOTÓN */}
+        
 
             <button
               type="submit"
