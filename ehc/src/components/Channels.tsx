@@ -64,16 +64,8 @@ return (
         <span className="text-volt">canales.</span>
       </h2>
 
-      <p className="mt-6 text-lg leading-8 text-mist">
-        Los servicios de EHCGroup son manejados por varios socios
-        estratégicos alrededor de América y Europa mediante nuestro
-        programa de canales.
-      </p>
-
       <p className="mt-3 text-lg leading-8 text-mist">
-        Si usted es un vendedor y desea ser parte integrante de nuestra
-        red, puede ponerse en contacto con nosotros mediante el siguiente
-        formulario.
+        
       </p>
     </Reveal>
 

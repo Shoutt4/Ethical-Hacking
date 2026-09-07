@@ -43,18 +43,7 @@ export default function Training() {
           ))}
         </div>
 
-        <Reveal className="mt-12">
-          <div className="border-l-2 border-volt bg-coal px-6 py-5">
-            <p className="mb-3 font-code text-[11px] tracking-[3px] text-fog uppercase">Certificaciones disponibles</p>
-            <ul className="m-0 flex list-none flex-wrap gap-x-7 gap-y-2 p-0">
-              {CERTS.map(cert => (
-                <li key={cert} className="text-sm font-bold tracking-wide text-mist uppercase">
-                  {cert}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
+         
       </div>
     </section>
   )
