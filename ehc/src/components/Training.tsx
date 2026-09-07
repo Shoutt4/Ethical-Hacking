@@ -1,0 +1,6 @@
+import { CERTS, COURSES } from '../lib/data'
+import Reveal from './Reveal'
+
+export default function Training() {
+  return <section id="training" className="skills-light scroll-mt-24 py-28 md:py-40"><div className="mx-auto w-full max-w-7xl px-5 md:px-8"><Reveal><div className="grid gap-7 lg:grid-cols-[.85fr_1.15fr]"><h2 className="light-title">Formación basada en práctica real.</h2><p className="light-copy max-w-[48ch] self-end">Cursos y certificaciones impartidos por los mismos profesionales que trabajan en seguridad ofensiva, respuesta a incidentes y gobierno.</p></div></Reveal><div className="mt-16 divide-y divide-[#cfd8d6] border-y border-[#cfd8d6]">{COURSES.map((course, index) => <Reveal key={course.code} className={index ? 'reveal-delay-1' : ''}><article className="course-row"><p className="course-date"><span>{course.day}</span>{course.month}</p><div><h3>{course.title}</h3><p>{course.modality} · {course.hours}</p></div><a href="#contacto" aria-label={`Inscribirme en ${course.title}`}>Inscribirme <span>→</span></a></article></Reveal>)}</div><Reveal className="mt-16"><div className="certifications"><p>Certificaciones disponibles</p><ul>{CERTS.map(cert => <li key={cert}>{cert}</li>)}</ul></div></Reveal></div></section>
+}
