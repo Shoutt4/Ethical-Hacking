@@ -9,7 +9,7 @@ import * as THREE from 'three'
 interface PartnerGlobeProps {
   partners: Partner[]
   selectedId: string
-  onSelect: (partner: Partner) => void
+  onSelect: (partner: Partner | null) => void
   resetToken: number
 }
 
@@ -49,9 +49,10 @@ const PartnerGlobe = forwardRef<PartnerGlobeHandle, PartnerGlobeProps>(
     height: 496,
   })
 
-  // ==========================================
-  // OBTENER PAÍSES DEL TOPOJSON
-  // ==========================================
+  const activePartnersData = useMemo(() => {
+    if (!selectedId) return []
+    return partners.filter(partner => partner.id === selectedId)
+  }, [partners, selectedId])
 
   const countries = useMemo(() => {
     const topology = countriesTopology as unknown as Parameters<typeof feature>[0]
@@ -76,13 +77,8 @@ const PartnerGlobe = forwardRef<PartnerGlobeHandle, PartnerGlobeProps>(
   }
 
   useImperativeHandle(ref, () => ({
-  focusPartner
-}))
-
-  // ==========================================
-  // ESTILOS DE LOS LABELS DE OFICINAS
-  // (columna + cajita con fuente mono de EHC)
-  // ==========================================
+    focusPartner
+  }))
 
   const officeStyles = useMemo(() => {
     const s = document.createElement('style')
@@ -92,15 +88,18 @@ const PartnerGlobe = forwardRef<PartnerGlobeHandle, PartnerGlobeProps>(
         flex-direction: column;
         align-items: center;
         cursor: pointer;
+        pointer-events: auto;
       }
       .office-box {
         background: #0D0D0D;
         border: 1px solid #7FCC27;
-        padding: 5px 11px 6px;
-        text-align: center;
+        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
         font-family: 'JetBrains Mono', 'Roboto Condensed', monospace;
         text-transform: uppercase;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.08em;
         position: relative;
         white-space: nowrap;
       }
@@ -108,51 +107,41 @@ const PartnerGlobe = forwardRef<PartnerGlobeHandle, PartnerGlobeProps>(
       .office-box::after {
         content: '';
         position: absolute;
-        width: 7px;
-        height: 7px;
+        width: 6px;
+        height: 6px;
         border: 1px solid #7FCC27;
       }
       .office-box::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
       .office-box::after  { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+      .office-flag {
+        width: 16px;
+        height: 12px;
+        object-fit: cover;
+        border-radius: 1px;
+      }
       .office-country {
         color: #7FCC27;
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 0.18em;
-      }
-      .office-name {
-        color: #EAEAEA;
         font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.04em;
-        margin-top: 2px;
+        font-weight: 700;
       }
       .office-pointer {
         width: 0;
         height: 0;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
-        border-top: 7px solid #7FCC27;
-        margin-top: 3px;
+        border-top: 6px solid #7FCC27;
+        margin-top: 2px;
       }
     `
     document.head.appendChild(s)
     return s
   }, [])
 
-  // ==========================================
-  // RESET VIEW
-  // ==========================================
-
   useEffect(() => {
     if (resetToken > 0) {
       globeRef.current?.pointOfView(INITIAL_VIEW, 900)
     }
   }, [resetToken])
-
-  // ==========================================
-  // RESPONSIVE SIZE
-  // ==========================================
 
   useEffect(() => {
     const node = containerRef.current
@@ -178,26 +167,14 @@ const PartnerGlobe = forwardRef<PartnerGlobeHandle, PartnerGlobeProps>(
       <Globe
         ref={globeRef}
 
-        // ==========================================
-        // DIMENSIONES
-        // ==========================================
-
         width={size.width}
         height={size.height}
         backgroundColor="rgba(0,0,0,0)"
         globeImageUrl={null}
 
-        // ==========================================
-        // ATMÓSFERA
-        // ==========================================
-
         showAtmosphere
         atmosphereColor="#7FCC27"
         atmosphereAltitude={0.14}
-
-        // ==========================================
-        // PAÍSES
-        // ==========================================
 
         polygonsData={countries}
         polygonGeoJsonGeometry="geometry"
@@ -228,8 +205,6 @@ const PartnerGlobe = forwardRef<PartnerGlobeHandle, PartnerGlobeProps>(
           return partner ? `
             <div class="globe-tooltip">
               <b>${partner.country}</b>
-              <br/>
-              ${partner.name}
             </div>
           ` : ''
         }}
@@ -242,6 +217,8 @@ const PartnerGlobe = forwardRef<PartnerGlobeHandle, PartnerGlobeProps>(
           const partner = partnerForCountry(country as CountryFeature)
           if (partner) focusPartner(partner)
         }}
+
+        onGlobeClick={() => onSelect(null)}
 
         pointsData={partners}
         pointLat="lat"
@@ -258,28 +235,31 @@ const PartnerGlobe = forwardRef<PartnerGlobeHandle, PartnerGlobeProps>(
           return `
             <div class="globe-tooltip">
               <b>${partner.country}</b>
-              <br/>
-              ${partner.name}
             </div>
           `
         }}
         onPointClick={(point: object) => focusPartner(point as Partner)}
 
-        htmlElementsData={partners}
+        htmlElementsData={activePartnersData}
         htmlLat="lat"
         htmlLng="lng"
         htmlAltitude={0.03}
         htmlElement={(data: object) => {
-          const partner = data as Partner
+          const partner = data as Partner & { countryCode?: string }
           officeStyles
 
           const element = document.createElement('div')
           element.className = 'globe-office-marker'
 
+          const flagCode = partner.countryCode ? partner.countryCode.toLowerCase() : ''
+          const flagImg = flagCode 
+            ? `<img class="office-flag" src="https://flagcdn.com/w40/${flagCode}.png" alt="${partner.country}" />`
+            : ''
+
           element.innerHTML = `
             <div class="office-box">
-              <div class="office-country">${partner.country}</div>
-              <div class="office-name">${partner.name}</div>
+              ${flagImg}
+              <span class="office-country">${partner.country}</span>
             </div>
             <div class="office-pointer"></div>
           `
@@ -297,7 +277,6 @@ const PartnerGlobe = forwardRef<PartnerGlobeHandle, PartnerGlobeProps>(
 
           const material = globeRef.current?.globeMaterial() as THREE.MeshPhongMaterial
           if (material) {
-            // Cuerpo del globo negro, SIN brillo especular blanco
             material.color.set('#000000')
             material.emissive.set('#000000')
             material.specular.set('#000000')
@@ -305,7 +284,6 @@ const PartnerGlobe = forwardRef<PartnerGlobeHandle, PartnerGlobeProps>(
             material.reflectivity = 0
           }
 
-          // Reduce la luz puntual interna que aún proyecta el reflejo blanco
           const scene = globeRef.current?.scene?.()
           scene?.traverse(obj => {
             const light = obj as THREE.PointLight
@@ -317,7 +295,7 @@ const PartnerGlobe = forwardRef<PartnerGlobeHandle, PartnerGlobeProps>(
       />
 
       <p className="pointer-events-none absolute bottom-5 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap font-code text-[9px] tracking-[.17em] text-[#829299] uppercase">
-        Selecciona un país u oficina para obtener más detalles
+        Selecciona un país para obtener más detalles
       </p>
     </div>
   )
