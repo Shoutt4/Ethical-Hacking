@@ -11,7 +11,7 @@ import Blog from './components/Blog'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import Partners from './components/Partners'
-
+import HeroCarousel from './components/HeroCarousel'
 export default function App() {
   const [snack, setSnack] = useState<string | null>(null)
   const timerRef = useRef<number>(0)
@@ -51,6 +51,7 @@ export default function App() {
         <Hero />
         
         <Partners />
+        <HeroCarousel/>
         <Services />
         <Products />
         <hr className="gradient-divider" />
