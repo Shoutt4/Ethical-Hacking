@@ -319,7 +319,7 @@ body::before {
 }
 .section-title {
   max-width: 14ch;
-  color: #f0f3ea;
+  color: #52656b;
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 5vw, 5.6rem);
   font-weight: 500;
