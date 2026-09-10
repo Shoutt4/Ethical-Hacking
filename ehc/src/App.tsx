@@ -50,12 +50,13 @@ export default function App() {
       <main id="contenido">
         <Hero />
         
-        <Partners />
+        
         <Services />
         <Products />
         <hr className="gradient-divider" />
         <About />
         <hr className="gradient-divider--wide" />
+        <Partners />
         <Training />
         <hr className="gradient-divider" />
         <Channels onSnack={showSnack} />

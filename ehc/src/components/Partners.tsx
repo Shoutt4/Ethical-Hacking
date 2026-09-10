@@ -24,9 +24,10 @@ export default function Partners() {
 
   return (
     <section
-      aria-label="Empresas que confían en nosotros"
-      className="trust-clip relative scroll-mt-24 bg-white py-12 md:py-10"
-    >
+  aria-label="Empresas que confían en nosotros"
+  className="trust-clip relative z-10 -my-[52px] scroll-mt-24 bg-white py-12 md:py-10"
+  style={{ clipPath: 'polygon(0 36px, 100% 0, 100% calc(100% - 36px), 0 100%)' } as React.CSSProperties}
+>
       <span
         aria-hidden="true"
         className="absolute inset-x-0 -bottom-0.5 h-px bg-edge/30"
