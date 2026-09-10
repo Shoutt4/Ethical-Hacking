@@ -191,7 +191,7 @@ export default function Contact({ onSnack }: ContactProps) {
   return (
     <section
       id="contacto"
-      className="scroll-mt-24 border-t border-edge bg-coal py-24 md:py-32"
+      className="scroll-mt-24 border-t border-edge bg-[coal] py-24 md:py-32"
     >
       <div className="mx-auto grid w-full max-w-6xl gap-14 px-5 md:grid-cols-[1fr_1.2fr] md:gap-20 md:px-8">
 
@@ -225,7 +225,7 @@ export default function Contact({ onSnack }: ContactProps) {
           <form
             noValidate
             onSubmit={submit}
-            className="flex flex-col gap-4 border border-edge bg-night p-6 md:p-9"
+            className="flex flex-col gap-4 border border-edge bg-[night] p-6 md:p-9"
           >
 
 
