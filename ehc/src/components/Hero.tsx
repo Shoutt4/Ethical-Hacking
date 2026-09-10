@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="hero-bg relative grid min-h-[100dvh] items-center overflow-hidden pt-6"
+      className="hero-bg relative grid min-h-[100dvh] items-center overflow-hidden pt-2"
     >
       <AsciiDots
         className="ascii-section-bg"
@@ -14,7 +14,7 @@ export default function Hero() {
       />
       <div className="hero-line" aria-hidden="true" />
 
-      <div className="relative z-[1] mx-auto flex min-h-[100dvh] w-full max-w-4xl flex-col items-center justify-center px-5 py-32 text-center md:px-8 md:py-48">
+      <div className="relative z-[1] mx-auto flex min-h-[100dvh] w-full max-w-4xl flex-col items-center justify-center px-5 py-12 text-center md:px-8 md:py-31">
         <Reveal>
           <p className="section-eyebrow !justify-center">
             Consultoría de ciberseguridad · LATAM
