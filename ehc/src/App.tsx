@@ -50,8 +50,7 @@ export default function App() {
       <main id="contenido">
         <Hero />
         
-        <Partners />
-        <HeroCarousel/>
+        
         <Services />
         <Products />
         <hr className="gradient-divider" />
@@ -59,6 +58,7 @@ export default function App() {
         <hr className="gradient-divider--wide" />
         <Partners />
         <Training />
+        <HeroCarousel/>
         <hr className="gradient-divider" />
         <Channels onSnack={showSnack} />
         <hr className="gradient-divider--wide" />
