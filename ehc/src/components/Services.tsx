@@ -25,7 +25,7 @@ export default function Services() {
   return (
     <section
   id="servicios"
-  className="relative z-10 -mt-[36px] scroll-mt-24 bg-[linear-gradient(135deg,#ffffff_0%,#eef3f4_55%,#dce8ec_100%)] py-28 md:py-40 [clip-path:polygon(0_36px,100%_0,100%_100%,0_100%)]"
+  className="relative z-10 -mt-[36px] scroll-mt-24 bg-[linear-gradient(180deg,#ffffff_0%,#eef3f4_45%,#dce8ec_72%,#0a171d_100%)] py-28 md:py-40 [clip-path:polygon(0_36px,100%_0,100%_100%,0_100%)]"
   style={{ clipPath: 'polygon(0 36px, 100% 0, 100% 100%, 0 100%)' }}
 >
       <div className="relative mx-auto w-full max-w-[74rem] px-2 sm:px-2 md:px-8">

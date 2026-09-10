@@ -72,9 +72,9 @@ export default function Products() {
 
   return (
     <section
-      id="productos"
-      className="scroll-mt-24 border-t border-edge bg-coal py-24 md:py-32"
-    >
+  id="productos"
+  className="relative isolate -mt-px bg-[#0a171d] py-24 md:py-32"
+>
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
 
         <Reveal>
