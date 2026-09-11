@@ -9,24 +9,20 @@ interface ContactProps {
 interface Fields {
   nombre: string
   email: string
-  empresa: string
   pais: string
   mensaje: string
-  privacidad: boolean
 }
 
 const INITIAL: Fields = {
   nombre: '',
   email: '',
-  empresa: '',
   pais: '',
   mensaje: '',
-  privacidad: false,
 }
 
 type FieldErrors = Partial<
   Record<
-    'nombre' | 'email' | 'mensaje' | 'privacidad',
+    'nombre' | 'email' | 'mensaje',
     string
   >
 >
@@ -44,13 +40,17 @@ export default function Contact({ onSnack }: ContactProps) {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    const { name, value, type } = e.target
-    const checked =
-      e.target instanceof HTMLInputElement ? e.target.checked : false
+    const { name, value } = e.target
+
+    let processedValue = value
+
+    if (name === 'nombre') {
+      processedValue = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '')
+    }
 
     setFields(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: processedValue,
     }))
     setErrors(prev => ({ ...prev, [name]: undefined }))
   }
@@ -59,14 +59,32 @@ export default function Contact({ onSnack }: ContactProps) {
     e.preventDefault()
     const next: FieldErrors = {}
 
-    if (!fields.nombre.trim()) next.nombre = 'Ingresa tu nombre.'
-    if (!fields.email.trim()) {
-      next.email = 'Ingresa tu email.'
-    } else if (!/^\S+@\S+\.\S+$/.test(fields.email)) {
-      next.email = 'Email inválido.'
+    const trimmedNombre = fields.nombre.trim()
+    if (!trimmedNombre) {
+      next.nombre = 'Ingresa tu nombre.'
+    } else if (trimmedNombre.length < 2) {
+      next.nombre = 'El nombre es demasiado corto (mínimo 2 caracteres).'
+    } else if (trimmedNombre.length > 50) {
+      next.nombre = 'El nombre no puede superar los 50 caracteres.'
     }
-    if (!fields.mensaje.trim()) next.mensaje = 'Cuéntanos qué necesitas.'
-    if (!fields.privacidad) next.privacidad = 'Debes aceptar la política de privacidad.'
+
+    const trimmedEmail = fields.email.trim()
+    if (!trimmedEmail) {
+      next.email = 'Ingresa tu email.'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      next.email = 'Email inválido (ej: usuario@dominio.com).'
+    } else if (trimmedEmail.length > 100) {
+      next.email = 'El email es demasiado largo.'
+    }
+
+    const trimmedMensaje = fields.mensaje.trim()
+    if (!trimmedMensaje) {
+      next.mensaje = 'Cuéntanos qué necesitas.'
+    } else if (trimmedMensaje.length < 10) {
+      next.mensaje = 'El mensaje debe tener al menos 10 caracteres.'
+    } else if (trimmedMensaje.length > 1000) {
+      next.mensaje = 'El mensaje no puede superar los 1000 caracteres.'
+    }
 
     setErrors(next)
 
@@ -86,11 +104,10 @@ export default function Contact({ onSnack }: ContactProps) {
         },
         body: JSON.stringify({
           _subject: 'Nueva solicitud de contacto - EHC Group',
-          nombre: fields.nombre.trim(),
-          email: fields.email.trim(),
-          empresa: fields.empresa.trim(),
-          pais: fields.pais,
-          mensaje: fields.mensaje.trim(),
+          nombre: trimmedNombre,
+          email: trimmedEmail,
+          pais: fields.pais.trim(),
+          mensaje: trimmedMensaje,
         }),
       })
 
@@ -119,11 +136,8 @@ export default function Contact({ onSnack }: ContactProps) {
     >
       {/* MAPA DE FONDO Y PIN (ESTILO APPLE MAPS) */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden bg-[#f9f7f2]">
-        
         <div className="absolute inset-0 bg-white/20 z-10"></div>
-        
         <div className="absolute w-[200vw] h-[200vh] top-[50%] left-[50%] md:top-[80%] md:left-[30%] -translate-x-1/2 -translate-y-1/2 z-0">
-          
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.6974127926177!2d-79.5199676!3d8.9822453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8faca8e48b816283%3A0xc66c1f1f2e1a3290!2sGlobal%20Bank%20Tower!5e0!3m2!1ses!2spa!4v1715000000000!5m2!1ses!2spa"
             className="absolute inset-0 w-full h-full border-0 filter saturate-[50%] sepia-[20%] hue-rotate-[-5deg] contrast-[1.05] brightness-[1.05] opacity-90"
@@ -132,7 +146,6 @@ export default function Contact({ onSnack }: ContactProps) {
             referrerPolicy="no-referrer-when-downgrade"
             title="Mapa Torre Global Bank"
           ></iframe>
-          
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[85%] flex flex-col items-center animate-bounce z-20">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -149,32 +162,24 @@ export default function Contact({ onSnack }: ContactProps) {
 
       {/* CONTENIDO PRINCIPAL */}
       <div className="relative z-20 mx-auto grid w-full max-w-7xl gap-10 px-5 md:grid-cols-[1.6fr_1fr] md:gap-16 md:px-8">
-
         {/* COLUMNA IZQUIERDA: Textos Flotantes */}
         <Reveal>
           <div className="relative p-0 md:py-12 flex flex-col self-start z-10">
-            
             <div className="absolute -inset-10 bg-white/70 blur-3xl -z-10 rounded-full pointer-events-none hidden md:block"></div>
-            
             <div>
               <p className="font-code text-xs tracking-[3px] text-[#7FCC27] font-bold [text-shadow:0_0_10px_white]">
                 // CONTACTO
               </p>
-
               <h2 className="mt-3 font-display text-[clamp(30px,4.5vw,54px)] leading-[1.02] tracking-wide text-black uppercase font-black [text-shadow:0_0_15px_white,0_0_5px_white]">
                 Contacta con<br />nosotros
               </h2>
-
-              
             </div>
-
             <div className="mt-10 pt-8 border-t border-gray-300">
               <ul className="flex list-none flex-col gap-5 p-0">
                 <li className="font-code text-sm font-bold text-[#7FCC27] flex items-center gap-3 [text-shadow:0_0_8px_white]">
                   <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                   contacto@ehcgroup.io
                 </li>
-                
                 <li className="font-code text-sm text-black font-bold flex items-start gap-3 [text-shadow:0_0_8px_white] hover:text-[#7FCC27] transition-colors">
                   <svg className="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                   <a 
@@ -186,7 +191,6 @@ export default function Contact({ onSnack }: ContactProps) {
                     Calle 50, Torre Global Bank, Piso 16, Oficina 1606, Ciudad de Panamá
                   </a>
                 </li>
-
                 <li className="font-code text-sm text-black font-bold flex items-center gap-3 [text-shadow:0_0_8px_white]">
                   <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                   +507 3873850 · LATAM
@@ -213,6 +217,7 @@ export default function Contact({ onSnack }: ContactProps) {
               id="f-nombre"
               name="nombre"
               type="text"
+              maxLength={50}
               value={fields.nombre}
               onChange={update}
               aria-invalid={!!errors.nombre}
@@ -227,47 +232,25 @@ export default function Contact({ onSnack }: ContactProps) {
               </p>
             )}
 
-            <div className="grid gap-4 sm:grid-cols-2 sm:gap-x-4">
-              <span className="flex flex-col gap-4">
-                <label
-                  htmlFor="f-email"
-                  className="font-code text-xs tracking-wide text-gray-500 uppercase font-bold"
-                >
-                  Email *
-                </label>
-                <input
-                  id="f-email"
-                  name="email"
-                  type="email"
-                  value={fields.email}
-                  onChange={update}
-                  aria-invalid={!!errors.email}
-                  placeholder="ada@empresa.com"
-                  className={`${FIELD_BASE} ${
-                    errors.email ? 'border-red-500' : ''
-                  }`}
-                />
-              </span>
-
-              <span className="flex flex-col gap-4">
-                <label
-                  htmlFor="f-empresa"
-                  className="font-code text-xs tracking-wide text-gray-500 uppercase font-bold"
-                >
-                  Empresa
-                </label>
-                <input
-                  id="f-empresa"
-                  name="empresa"
-                  type="text"
-                  value={fields.empresa}
-                  onChange={update}
-                  placeholder="ACME Corp"
-                  className={FIELD_BASE}
-                />
-              </span>
-            </div>
-
+            <label
+              htmlFor="f-email"
+              className="font-code text-xs tracking-wide text-gray-500 uppercase font-bold"
+            >
+              Email *
+            </label>
+            <input
+              id="f-email"
+              name="email"
+              type="email"
+              maxLength={100}
+              value={fields.email}
+              onChange={update}
+              aria-invalid={!!errors.email}
+              placeholder="ada@empresa.com"
+              className={`${FIELD_BASE} ${
+                errors.email ? 'border-red-500' : ''
+              }`}
+            />
             {errors.email && (
               <p className="-mt-2 font-code text-xs text-red-500">
                 {errors.email}
@@ -280,23 +263,26 @@ export default function Contact({ onSnack }: ContactProps) {
             >
               País
             </label>
-            <select
+            <input
               id="f-pais"
               name="pais"
+              type="text"
+              list="paises-sugeridos"
+              maxLength={40}
               value={fields.pais}
               onChange={update}
-              className={`${FIELD_BASE} appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%228%22%3E%3Cpath%20d%3D%22M1%201l5%205%205-5%22%20fill%3D%22none%22%20stroke%3D%22%237FCC27%22%20stroke-width%3D%222%22/%3E%3C/svg%3E')] bg-[position:right_14px_center] bg-no-repeat pr-10 cursor-pointer`}
-            >
-              <option value="">Selecciona…</option>
-              <option>México</option>
-              <option>Panamá</option>
-              <option>Perú</option>
-              <option>Colombia</option>
-              <option>Costa Rica</option>
-              <option>Guatemala</option>
-              <option>España</option>
-              <option>Otro</option>
-            </select>
+              placeholder="Escribe o selecciona tu país..."
+              className={FIELD_BASE}
+            />
+            <datalist id="paises-sugeridos">
+              <option value="México" />
+              <option value="Panamá" />
+              <option value="Perú" />
+              <option value="Colombia" />
+              <option value="Costa Rica" />
+              <option value="Guatemala" />
+              <option value="España" />
+            </datalist>
 
             <label
               htmlFor="f-mensaje"
@@ -308,10 +294,11 @@ export default function Contact({ onSnack }: ContactProps) {
               id="f-mensaje"
               name="mensaje"
               rows={5}
+              maxLength={1000}
               value={fields.mensaje}
               onChange={update}
               aria-invalid={!!errors.mensaje}
-              placeholder="Queremos evaluar la seguridad de nuestro e-commerce…"
+              placeholder="Queremos evaluar la seguridad de nuestro e-commerce… (Mínimo 10 caracteres)"
               className={`${FIELD_BASE} resize-y ${
                 errors.mensaje ? 'border-red-500' : ''
               }`}
@@ -319,30 +306,6 @@ export default function Contact({ onSnack }: ContactProps) {
             {errors.mensaje && (
               <p className="-mt-2 font-code text-xs text-red-500">
                 {errors.mensaje}
-              </p>
-            )}
-
-            <label
-              htmlFor="f-privacidad"
-              className={`flex cursor-pointer items-center gap-3 mt-2 ${
-                errors.privacidad ? 'text-red-500' : 'text-gray-700'
-              }`}
-            >
-              <input
-                id="f-privacidad"
-                name="privacidad"
-                type="checkbox"
-                checked={fields.privacidad}
-                onChange={update}
-                className="size-4 shrink-0 cursor-pointer appearance-none border border-gray-400 bg-white checked:border-[#7FCC27] checked:bg-[#7FCC27] checked:bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2210%22%20height%3D%228%22%3E%3Cpath%20d%3D%22M1%204l3%203%205-6%22%20fill%3D%22none%22%20stroke%3D%22%230B0B0B%22%20stroke-width%3D%222%22/%3E%3C/svg%3E')] bg-center bg-no-repeat transition-colors"
-              />
-              <span className="text-sm font-medium">
-                Acepto la política de privacidad *
-              </span>
-            </label>
-            {errors.privacidad && (
-              <p className="-mt-2 font-code text-xs text-red-500">
-                {errors.privacidad}
               </p>
             )}
 
@@ -361,7 +324,6 @@ export default function Contact({ onSnack }: ContactProps) {
             </button>
           </form>
         </Reveal>
-
       </div>
     </section>
   )
