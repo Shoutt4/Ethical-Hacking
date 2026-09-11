@@ -54,15 +54,15 @@ setFormMsg("");
 };
 
 return (
-<section id="canales" className="channels-section relative scroll-mt-24 overflow-hidden bg-night py-28 md:py-40" >
+<section id="canales" className="channels-section relative scroll-mt-23 overflow-hidden bg-night py-12 md:py-16" >
 <div className="relative mx-auto w-full max-w-7xl px-5 md:px-8">
 <Reveal>
 <p className="section-eyebrow">// Canales</p>
 
-      <h2 className="section-title mt-4">
-        Sé parte de nuestra red de{" "}
-        <span className="text-volt">canales.</span>
-      </h2>
+     <h2 className="section-title mt-3 text-base">
+  Sé parte de nuestra red de{" "}
+  <span className="text-volt">canales.</span>
+</h2>
 
       <p className="mt-3 text-lg leading-8 text-mist">
         
