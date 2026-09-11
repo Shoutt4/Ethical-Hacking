@@ -85,7 +85,6 @@ return (
             <span className="size-1.5 animate-pulse rounded-full bg-rose-200" />
             Red de socios
           </div>
-
           <button
             type="button"
             onClick={() => {
