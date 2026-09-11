@@ -63,8 +63,8 @@ export const SERVICES: Service[] = [
     meta: ["Pruebas de Intrusión Externas e Internas","Evaluación Wireless, SAP y SCADA","Ingeniería Social","Pentesting especializado en ATMs"],
     icon: "a",
     accent: "green",
-    alcance: "Evaluación de perímetro externo/interno, wireless, SAP/SCADA, ATMs y factor humano vía ingeniería social, bajo Ethical Hacking sin impacto productivo.",
-    objetivo: "Identificar y priorizar vulnerabilidades con evidencia reproducible y roadmap de remediación para reducir exposición antes de un ataque real."
+    alcance: "Comprende la auditoría de controles VISA, MASTERCARD y PROSA; estándares PCI-DSS, PA-DSS, PCI-PTS e ISO 8583; protecciones perimetrales, sistema operativo, aplicativos, binarios, antimalware, espectro de frecuencias y comunicaciones del ATM.",
+    objetivo: "Evaluar la seguridad de los cajeros automáticos (ATM) mediante la revisión de más de 300 controles, identificando vulnerabilidades y riesgos en sus sistemas, comunicaciones, aplicaciones, infraestructura y mecanismos de protección."
   },
   {
     id: "sc-2",
@@ -75,8 +75,8 @@ export const SERVICES: Service[] = [
     meta: ["Controles VISA, MASTERCARD, PROSA, PCI-DSS/PA-DSS/PTS e ISO 8583","Protecciones, perímetro, SO, aplicaciones y binarios","Espectro de frecuencia y comunicaciones","Más de 300 controles propios para ATMs"],
     icon: "b",
     accent: "blue",
-    alcance: "Auditoría del ecosistema ATM: controles VISA, MASTERCARD, PROSA, PCI/PTS e ISO 8583, protecciones físicas/lógicas, SO, binarios, espectro y comunicaciones, con 300+ controles propios.",
-    objetivo: "Certificar la seguridad del parque ATM y cerrar brechas de skimming, jackpotting y fraude con hallazgos priorizados por riesgo."
+    alcance: "Comprende peritajes y contra peritajes informáticos, preservación y recuperación de evidencia digital, delitos informáticos, contratos y conflictos tecnológicos, auditorías de infraestructura, redes, aplicaciones y cumplimiento normativo, además de servicios de inteligencia, monitoreo, respuesta a incidentes y soluciones de Big Data para la seguridad.",
+    objetivo: "Investigar, analizar y evaluar incidentes, evidencias y riesgos informáticos, proporcionando servicios de informática forense, auditoría, inteligencia y seguridad tecnológica con respaldo técnico y legal."
   },
   {
     id: "sc-3",
@@ -99,8 +99,8 @@ export const SERVICES: Service[] = [
     meta: ["Investigación y patrocinio en delitos informáticos","Contratos informáticos y derechos de autor","Firma electrónica, comercio electrónico y sellos de confianza","ODR y vulneración de la privacidad"],
     icon: "d",
     accent: "red",
-    alcance: "Investigación y patrocinio en delitos informáticos, contratos tecnológicos, derechos de autor, firma y comercio electrónico, privacidad, estafas/fraudes y ODR.",
-    objetivo: "Traducir riesgo tecnológico a estrategia jurídica que prevenga responsabilidad y habilite operaciones digitales con validez legal."
+    alcance: "Abarca delitos informáticos, contratos tecnológicos, comercio electrónico, derechos de autor, protección de la intimidad, firmas electrónicas y resolución de conflictos relacionados con medios digitales.",
+    objetivo: "Proporcionar asesoramiento legal especializado para prevenir, gestionar y resolver conflictos relacionados con el uso de tecnologías y servicios digitales."
   },
   {
     id: "sc-5",
@@ -111,8 +111,8 @@ export const SERVICES: Service[] = [
     meta: ["Servidores, Data Centers y redes LAN/WAN/Wireless/VoIP","Aplicaciones Web, móviles y desarrollo seguro","Seguridad perimetral y código binario","Cumplimiento PCI-DSS v3.0 e ISO 27001/27002"],
     icon: "e",
     accent: "yellow",
-    alcance: "Revisión de servidores, Data Centers, redes LAN/WAN/Wireless/VoIP, apps Web/móviles, perímetro y código binario, alineada a PCI-DSS v3.0 e ISO 27001/27002.",
-    objetivo: "Obtener fotografía integral de seguridad y cumplimiento para priorizar cierres de brechas con plan por criticidad y esfuerzo."
+    alcance: "Comprende auditorías de servidores, Data Centers, redes LAN, WAN, Wireless y VoIP, además de aplicaciones web y móviles, código binario, procesos de desarrollo seguro y cumplimiento de estándares como PCI-DSS e ISO 27001/27002.",
+    objetivo: "Evaluar el nivel de seguridad de la infraestructura tecnológica de una organización e identificar posibles vulnerabilidades, riesgos y oportunidades de mejora."
   },
   {
     id: "sc-6",
@@ -123,8 +123,8 @@ export const SERVICES: Service[] = [
     meta: ["Cyber Intelligence (CYBINT) y COMINT","Formación HUMINT y cuerpos de inteligencia","Centros de Respuesta a Incidentes Cibernéticos","Centros de Monitoreo y Seguridad"],
     icon: "f",
     accent: "grey",
-    alcance: "Formación en CYBINT, COMINT y HUMINT y despliegue de Centros de Respuesta a Incidentes y Centros de Monitoreo y Seguridad.",
-    objetivo: "Dotar exclusivamente a gobiernos de capacidades que anticipen y contengan amenazas contra la seguridad ciudadana y del Estado."
+    alcance: "Incluye ciberinteligencia (CYBINT), inteligencia de comunicaciones (COMINT), capacitación en inteligencia humana (HUMINT), desarrollo de centros de respuesta a incidentes y sistemas de monitoreo de seguridad. Servicio dirigido principalmente a gobiernos.",
+    objetivo: "Proporcionar capacidades de inteligencia y monitoreo que permitan prevenir, detectar y responder ante amenazas cibernéticas y riesgos que puedan afectar a organizaciones gubernamentales."
   },
   {
     id: "sc-7",
@@ -135,8 +135,8 @@ export const SERVICES: Service[] = [
     meta: ["Cursos 100% prácticos con laboratorios virtualizados","Lecciones grabadas y plataforma e-learning","Capacitadores internacionales y soporte en 3 idiomas","Certificaciones en pentesting, forense e ISO 27001"],
     icon: "g",
     accent: "amber",
-    alcance: "Cursos 100% prácticos con labs virtualizados, lecciones grabadas, plataforma e-learning y soporte en 3 idiomas con instructores internacionales.",
-    objetivo: "Desarrollar competencias certificables y aplicables desde el primer día con entrenamiento continuo y validación por certificaciones."
+    alcance: "Incluye cursos, laboratorios virtuales y certificaciones en áreas como pentesting, seguridad de aplicaciones web, seguridad Wireless, delitos informáticos, auditoría ISO 27001 y seguridad de cajeros automáticos.",
+    objetivo: "Desarrollar conocimientos y habilidades especializadas en ciberseguridad mediante capacitación práctica y certificaciones profesionales."
   },
   {
     id: "sc-8",
@@ -147,8 +147,8 @@ export const SERVICES: Service[] = [
     meta: ["Asymmetric Big Data Security Analytics","ATM Risk Operation Center y Security Center Log Manager","SIEM integrado con Big Data y nube","Detección de fraudes y desarrollo Splunk/Hadoop"],
     icon: "h",
     accent: "cyan",
-    alcance: "Asymmetric Big Data Security Analytics, ATM Risk y Log Manager, SIEM con Big Data en nube, monitoreo de amenazas y fraudes en telecom con Splunk/Hadoop.",
-    objetivo: "Convertir logs y eventos masivos en inteligencia accionable para correlacionar, detectar anomalías y orquestar respuesta a escala."
+    alcance: "Comprende el análisis y correlación de logs, integración de sistemas SIEM, monitoreo de redes, detección de fraudes, centros de operación de riesgos para ATM y soluciones de seguridad basadas en tecnologías como Splunk y Hadoop.",
+    objetivo: "Analizar grandes volúmenes de información para detectar, prevenir y responder oportunamente ante amenazas, incidentes de seguridad y posibles fraudes."
   },
 ];
 
