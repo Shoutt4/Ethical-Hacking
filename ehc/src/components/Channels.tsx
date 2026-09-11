@@ -57,7 +57,7 @@ return (
 <section id="canales" className="channels-section relative scroll-mt-24 overflow-hidden bg-night py-28 md:py-40" >
 <div className="relative mx-auto w-full max-w-7xl px-5 md:px-8">
 <Reveal>
-<p className="section-eyebrow">/ 06 · Canales</p>
+<p className="section-eyebrow">// Canales</p>
 
       <h2 className="section-title mt-4">
         Sé parte de nuestra red de{" "}

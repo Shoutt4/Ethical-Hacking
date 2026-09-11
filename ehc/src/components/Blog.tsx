@@ -105,7 +105,7 @@ export default function Blog() {
                 id="blog-title"
                 className="mt-3 font-display text-[clamp(30px,4.5vw,54px)] leading-[1.02] tracking-wide text-white uppercase"
               >
-                Inteligencia pública
+                Tablón de noticias
               </h2>
               <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-fog">
                 Últimas publicaciones del blog oficial de EHC Group.

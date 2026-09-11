@@ -10,10 +10,9 @@ const LERP_FACTOR = 0.09
 const SNAP_EPS = 0.0015
 const PARALLAX = 0.09
 const mod = (i: number, n: number) => ((i % n) + n) % n
-const pad = (i: number) => String(i + 1).padStart(2, '0')
 type ProductVisual = Product & { image?: string }
 function StatusPill({ status }: { status: Product['status'] }) {
-  const live = status !== 'maintenance'
+  void status
   return (
     <span
       className=""
@@ -24,7 +23,7 @@ function StatusPill({ status }: { status: Product['status'] }) {
   )
 }
 
-function ProductVisualPanel({ product, num }: { product: ProductVisual; num: string }) {
+function ProductVisualPanel({ product }: { product: ProductVisual }) {
   return (
     <div className="relative h-full w-full overflow-hidden bg-night">
       {/* capa con parallax (más grande que el marco para no dejar bordes) */}
@@ -115,7 +114,11 @@ export default function Products() {
   const trackRef = useRef<HTMLDivElement>(null)
   const slidesRef = useRef(new Map<number, HTMLDivElement>())
   const draggingRef = useRef(false)
+  const isDownRef = useRef(false)
+  const didDragRef = useRef(false)
+  const suppressClickRef = useRef(false)
   const dragStartX = useRef(0)
+  const dragStartY = useRef(0)
   const dragStartPos = useRef(0)
 
   const setTarget = useCallback((v: number) => {
@@ -184,24 +187,51 @@ export default function Products() {
     }
   }, [])
 
-  /* drag / touch (pan-y libre para no romper el scroll de página) */
+  /* click vs drag: solo se considera drag tras superar DRAG_THRESHOLD px.
+     El click normal nunca toca el estado ni captura el pointer, así el <a>
+     recibe su click intacto. */
+  const DRAG_THRESHOLD = 8
+
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
-    draggingRef.current = true
+    isDownRef.current = true
+    didDragRef.current = false
     dragStartX.current = e.clientX
+    dragStartY.current = e.clientY
     dragStartPos.current = posRef.current
-    e.currentTarget.setPointerCapture?.(e.pointerId)
   }
   const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (!draggingRef.current) return
+    if (!isDownRef.current) return
+    const dx = e.clientX - dragStartX.current
+    const dy = e.clientY - dragStartY.current
+    if (!didDragRef.current) {
+      if (Math.hypot(dx, dy) < DRAG_THRESHOLD) return
+      didDragRef.current = true
+      draggingRef.current = true
+      e.currentTarget.setPointerCapture?.(e.pointerId)
+    }
     const W = widthRef.current
-    posRef.current = dragStartPos.current - (e.clientX - dragStartX.current) / W
+    posRef.current = dragStartPos.current - dx / W
     const rounded = Math.round(posRef.current)
     if (rounded !== targetRef.current) setTarget(rounded)
   }
   const endDrag = () => {
-    if (!draggingRef.current) return
+    if (!isDownRef.current) return
+    isDownRef.current = false
+    if (!didDragRef.current) return
+    didDragRef.current = false
     draggingRef.current = false
     setTarget(Math.round(posRef.current))
+    /* el navegador puede emitir un click sintético al soltar un drag
+       sobre el enlace: se suprime solo ese click */
+    suppressClickRef.current = true
+  }
+
+  /* traga únicamente el click sintético posterior a un drag */
+  const onClickCapture = (e: React.SyntheticEvent<HTMLDivElement>) => {
+    if (!suppressClickRef.current) return
+    suppressClickRef.current = false
+    e.preventDefault()
+    e.stopPropagation()
   }
 
   const onKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
@@ -234,7 +264,7 @@ export default function Products() {
                   id="productos-title"
                   className="mt-3 font-display text-[clamp(30px,4.5vw,54px)] leading-[1.02] tracking-wide text-white uppercase"
                 >
-                  Nuestras <span className="text-volt">soluciones</span>
+                  Nuestros <span className="text-volt">productos</span>
                 </h2>
               </div>
              
@@ -250,6 +280,7 @@ export default function Products() {
               aria-label="Productos y soluciones EHC"
               tabIndex={0}
               onKeyDown={onKeyDown}
+              onClickCapture={onClickCapture}
               onPointerDown={onPointerDown}
               onPointerMove={onPointerMove}
               onPointerUp={endDrag}
@@ -260,7 +291,6 @@ export default function Products() {
               <div ref={trackRef} className="flex will-change-transform">
                 {offsets.map((k) => {
                   const p = PRODUCTS[mod(index + k, total)] as ProductVisual
-                  const r = mod(index + k, total)
                   return (
                     <div
                       key={`${index}-${k}`}
@@ -272,7 +302,7 @@ export default function Products() {
                     >
                       <div className="grid md:grid-cols-2">
                         <div className="aspect-[4/3] md:aspect-auto md:min-h-[420px]">
-                          <ProductVisualPanel product={p} num={pad(r)} />
+                          <ProductVisualPanel product={p} />
                         </div>
                         <div className="flex flex-col justify-center gap-4 p-6 md:p-10">
                            

@@ -30,7 +30,7 @@ export default function Services() {
 >
       <div className="relative mx-auto w-full max-w-[74rem] px-2 sm:px-2 md:px-8">
         <Reveal>
-          <p className="section-eyebrow">/ 02 · Servicios</p>
+          <p className="section-eyebrow">// Servicios</p>
           <div className="mt-7 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <div>
               <h2 className="section-title">
