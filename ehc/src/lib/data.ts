@@ -35,27 +35,21 @@ export interface Milestone {
 export const MILESTONES: Milestone[] = [
   {
     id: "m1",
-    year: "2001",
+    year: "2001 · FUNDACIÓN",
     title: "Nace EHC Group",
     text: "Iniciamos gestionando proyectos integrales de seguridad de la información: análisis de sistemas, implementación de soluciones y procesos que integran tecnología, procesos y personas.",
   },
   {
     id: "m2",
-    year: "2016",
+    year: "2016 · EXPANSIÓN",
     title: "Expansión regional",
     text: "Nos consolidamos como holding internacional de alta seguridad tecnológica con presencia en Estados Unidos y siete países de Latinoamérica.",
   },
   {
     id: "m3",
-    year: "ESPECIALIDADES",
-    title: "Pentesting & ATM Security",
-    text: "Penetración en aplicaciones e infraestructuras críticas, con un fuerte enfoque en seguridad bancaria y de cajeros automáticos (ATMs).",
-  },
-  {
-    id: "m4",
-    year: "HOY",
-    title: "ISO 27001 · Cyber SOC",
-    text: "Operamos bajo normativa ISO 27001 y protegemos infraestructuras de gobierno, con Cyber SOC, informática forense e inteligencia informática.",
+    year: "ACTUALIDAD",
+    title: "EHC Group hoy",
+    text: "Especialistas en pentesting y seguridad bancaria y de cajeros automáticos (ATMs). Operamos bajo normativa ISO 27001 y protegemos infraestructuras de gobierno, con Cyber SOC, informática forense e inteligencia informática.",
   },
 ];
 
@@ -203,46 +197,6 @@ export const CERTS: string[] = [
   "Internal Auditor ISO 27001",
   "ATM Lead Security Auditor",
 ];
-
-export type Grad = "g1" | "g2" | "g3";
-
-export interface Post {
-  pill: string;
-  title: string;
-  date: string;
-  mins: number;
-  grad: Grad;
-}
-
-export const POSTS: Post[] = [
-  {
-    pill: "Red Team",
-    title: "Red Team vs Blue Team vs Purple Team: ¿qué necesita tu empresa?",
-    date: "12 AGO 2026",
-    mins: 8,
-    grad: "g1",
-  },
-  {
-    pill: "OSINT",
-    title: "Así es Shodan, el buscador preferido de los hackers",
-    date: "28 JUL 2026",
-    mins: 6,
-    grad: "g2",
-  },
-  {
-    pill: "Hardening",
-    title: "Guía práctica de hardening de Linux en producción",
-    date: "15 JUL 2026",
-    mins: 10,
-    grad: "g3",
-  },
-];
-
-export const GRADIENTS: Record<Grad, string> = {
-  g1: "bg-[linear-gradient(135deg,#101C08,#000)]",
-  g2: "bg-[linear-gradient(135deg,#081420,#000)]",
-  g3: "bg-[linear-gradient(135deg,#190F08,#000)]",
-};
 
 export const STANDARDS: string[] = [
   "ISO 27001",

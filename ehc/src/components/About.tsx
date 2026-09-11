@@ -27,54 +27,54 @@ export default function About() {
           </Reveal>
         </div>
 
-        <div className="relative mt-10">
-          {/* línea con degradado 1.5px */}
+        <ol className="relative mt-12 md:mt-16">
+          {/* línea horizontal continua: del centro del 1er al centro del 3er marcador */}
           <span
             aria-hidden
-            className="absolute left-0 right-0 hidden h-[1.5px] md:block"
+            className="absolute top-[6px] right-[calc(33.333%-7px)] left-[7px] hidden h-[1.5px] md:block"
             style={{
-              top: '14px',
-              background: 'linear-gradient(90deg, transparent, rgba(182,229,55,0.35) 12%, rgba(182,229,55,0.35) 88%, transparent)',
+              background: 'linear-gradient(90deg, rgba(182,229,55,0.35), rgba(182,229,55,0.35) 88%, transparent)',
+            }}
+          />
+          {/* línea vertical continua en móvil */}
+          <span
+            aria-hidden
+            className="absolute top-2 bottom-2 left-[6px] w-[1.5px] md:hidden"
+            style={{
+              background: 'linear-gradient(180deg, rgba(182,229,55,0.35), rgba(182,229,55,0.35) 88%, transparent)',
             }}
           />
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 md:gap-5 lg:gap-5">
-            {MILESTONES.map((m) => (
-              <article
-                key={m.id}
-                className="group relative flex flex-col rounded-xl border border-transparent p-4 -m-4 transition-all duration-300 hover:-translate-y-1.5 hover:border-volt/20 hover:bg-white/[0.03] hover:shadow-[0_12px_32px_rgba(0,0,0,0.35),0_0_0_1px_rgba(182,229,55,0.08)] cursor-default"
-              >
-                {/* nodo con glow + pulse + hover scale */}
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8 lg:gap-12">
+            {MILESTONES.map((m, i) => (
+              <li key={m.id} className="group relative cursor-default pl-10 md:pl-0">
+                {/* marcador rombo sobre la línea */}
                 <span
                   aria-hidden
-                  className="timeline-node relative z-10 mb-5 block size-3.5 rotate-45 border-[1.5px] border-volt bg-coal shadow-[0_0_0_6px_rgba(182,229,55,0.10),0_0_14px_rgba(182,229,55,0.35)] animate-pulse transition-all duration-300 group-hover:scale-110 group-hover:rotate-[45deg] group-hover:border-volt group-hover:shadow-[0_0_0_8px_rgba(182,229,55,0.18),0_0_22px_rgba(182,229,55,0.6)] group-hover:bg-volt"
+                  className="timeline-node absolute top-[2px] left-0 z-10 block size-3.5 rotate-45 border-[1.5px] border-volt bg-coal shadow-[0_0_0_6px_rgba(182,229,55,0.10),0_0_14px_rgba(182,229,55,0.35)] animate-pulse transition-all duration-300 group-hover:scale-110 group-hover:border-volt group-hover:bg-volt group-hover:shadow-[0_0_0_8px_rgba(182,229,55,0.18),0_0_22px_rgba(182,229,55,0.6)] md:static md:mb-7"
                   style={{ animationDuration: '3s' }}
                 />
 
-                <p className="timeline-year mb-2 font-code text-xs tracking-[3px] text-volt transition-colors duration-300 group-hover:text-volt-light group-hover:tracking-[3.5px]">
-                  {m.year}
-                </p>
+                <Reveal delay={i * 0.12}>
+                  <p className="timeline-year mb-2 font-code text-xs tracking-[3px] text-volt transition-colors duration-300 group-hover:text-volt-light">
+                    {m.year}
+                  </p>
 
-                <h3 className="mb-2 font-display text-[1.05rem] leading-tight tracking-wide text-white uppercase transition-colors duration-300 group-hover:text-volt">
-                  {m.title}
-                </h3>
+                  <h3 className="mb-2 font-display text-[1.05rem] leading-tight tracking-wide text-white uppercase transition-colors duration-300 group-hover:text-volt">
+                    {m.title}
+                  </h3>
 
-                {/* barra sutil que crece en hover */}
-                <span className="mb-3 block h-px w-8 bg-volt/30 transition-all duration-300 group-hover:w-12 group-hover:bg-volt/60" aria-hidden />
+                  {/* línea decorativa que crece en hover */}
+                  <span className="mb-3 block h-px w-8 bg-volt/30 transition-all duration-300 group-hover:w-12 group-hover:bg-volt/60" aria-hidden />
 
-                <p className="text-[0.84rem] leading-[1.65] text-mist/90 transition-colors duration-300 group-hover:text-mist line-clamp-6">
-                  {m.text}
-                </p>
-
-                {/* brillo inferior en hover */}
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-4 bottom-0 h-px bg-gradient-to-r from-transparent via-volt/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-hover:via-volt/20"
-                />
-              </article>
+                  <p className="max-w-md text-[0.84rem] leading-[1.65] text-mist/90 transition-colors duration-300 group-hover:text-mist">
+                    {m.text}
+                  </p>
+                </Reveal>
+              </li>
             ))}
           </div>
-        </div>
+        </ol>
       </div>
     </section>
   )
