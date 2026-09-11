@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react'
-import { Maximize2, X, Compass } from 'lucide-react'
+import { useState } from 'react'
+import { Maximize2, X } from 'lucide-react'
 
 export interface GalleryPhoto {
   id: number
@@ -50,34 +50,10 @@ const galleryPhotos: GalleryPhoto[] = [
 export default function ImageSkewGallery() {
   const [activePhoto, setActivePhoto] = useState<GalleryPhoto | null>(null)
   const [isHovered, setIsHovered] = useState(false)
-
- 
   const marqueeItems = [...galleryPhotos, ...galleryPhotos]
 
   return (
-    <section className="relative w-full bg-night py-16 text-white overflow-hidden select-none">
-      
-    
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8 flex justify-between items-end">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-volt animate-ping" />
-            <span className="font-code text-[10px] uppercase tracking-[0.3em] text-volt">
-              // ARCHIVO_FOTOGRÁFICO
-            </span>
-          </div>
-          <h2 className="text-2xl font-bold tracking-tight text-white md:text-3xl uppercase">
-            Experiencias & Entrenamientos
-          </h2>
-        </div>
-
-        <div className="hidden sm:flex items-center gap-2 font-code text-[10px] text-gray-500 uppercase tracking-widest">
-          <Compass size={12} className="text-volt" />
-          <span>GALERÍA_INTERACTIVA</span>
-        </div>
-      </div>
-
-     
+    <section className="relative w-full bg-night py-6 text-white overflow-hidden select-none">
       <div 
         className="relative w-full bg-white/[0.012] py-6 border-y border-white/10 overflow-hidden"
         style={{
@@ -90,16 +66,18 @@ export default function ImageSkewGallery() {
         <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-volt/20 to-transparent" />
         <div className="absolute inset-0 bg-[radial-gradient(#ccff00_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.04] pointer-events-none" />
 
+     
         <div 
-          className={`flex w-max gap-4 md:gap-5 ${
-            isHovered ? '[animation-play-state:paused]' : 'animate-[skewMarquee_30s_linear_infinite]'
-          }`}
+          className="flex w-max gap-0 animate-[skewMarquee_30s_linear_infinite]"
+          style={{
+            animationPlayState: isHovered ? 'paused' : 'running'
+          }}
         >
           {marqueeItems.map((item, index) => (
             <div
               key={`${item.id}-${index}`}
               onClick={() => setActivePhoto(item)}
-              className="group relative flex-shrink-0 w-[280px] sm:w-[340px] md:w-[400px] h-[220px] sm:h-[260px] border border-white/10 bg-night cursor-pointer overflow-hidden transition-all duration-300 hover:border-volt hover:shadow-[0_0_25px_rgba(204,255,0,0.22)] hover:scale-[1.015]"
+              className="group relative flex-shrink-0 w-[280px] sm:w-[340px] md:w-[400px] h-[220px] sm:h-[260px] border border-white/10 bg-night cursor-pointer overflow-hidden transition-all duration-300 hover:border-volt hover:shadow-[0_0_25px_rgba(204,255,0,0.22)] hover:scale-[1.015] hover:z-10"
               style={{
                 clipPath: 'polygon(0 0, 95% 0, 100% 5%, 100% 100%, 0 100%)'
               }}
@@ -107,7 +85,7 @@ export default function ImageSkewGallery() {
               <img
                 src={item.url}
                 alt={item.caption}
-                className="h-full w-full object-cover grayscale contrast-125 transition-all duration-500 ease-out group-hover:grayscale-0 group-hover:scale-105"
+                className="h-full w-full object-cover transition-all duration-500 ease-out group-hover:scale-105"
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-night via-night/30 to-transparent opacity-80 group-hover:opacity-40 transition-opacity" />
@@ -119,12 +97,10 @@ export default function ImageSkewGallery() {
                 </span>
               </div>
 
-          
               <div className="absolute top-3 right-3 font-code text-[9px] text-gray-500 group-hover:text-white transition-colors">
                 [{item.code}]
               </div>
 
-            
               <div className="absolute bottom-3 left-3 right-3 flex justify-between items-center">
                 <span className="font-code text-[10px] text-gray-400 group-hover:text-white truncate max-w-[80%] transition-colors">
                   {item.caption}
@@ -150,7 +126,6 @@ export default function ImageSkewGallery() {
             className="relative max-w-5xl w-full border border-volt/40 bg-night p-2 shadow-[0_0_50px_rgba(204,255,0,0.15)]"
             onClick={(e) => e.stopPropagation()}
           >
-         
             <div className="flex justify-between items-center p-3 border-b border-white/10 font-code text-xs mb-2">
               <span className="text-volt flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-volt animate-pulse" />
@@ -165,7 +140,6 @@ export default function ImageSkewGallery() {
               </button>
             </div>
 
-           
             <div className="relative overflow-hidden max-h-[75vh] flex items-center justify-center bg-black/50">
               <img 
                 src={activePhoto.url} 
@@ -174,7 +148,6 @@ export default function ImageSkewGallery() {
               />
             </div>
 
-        
             <div className="p-3 font-code text-xs text-gray-300 border-t border-white/10 flex justify-between items-center">
               <span>{activePhoto.caption}</span>
               <span className="text-volt text-[10px]">EHC_GALLERY_NODE</span>
@@ -183,7 +156,6 @@ export default function ImageSkewGallery() {
         </div>
       )}
 
-      
       <style>{`
         @keyframes skewMarquee {
           0% { transform: translateX(0%); }
