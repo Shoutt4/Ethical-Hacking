@@ -78,7 +78,10 @@ return (
             partners={PARTNERS}
             selectedId={selectedId}
             resetToken={resetToken}
-            onSelect={(partner) => selectPartner(partner.id)}
+            onSelect={(partner) => {
+              if (!partner) return;
+              selectPartner(partner.id);
+            }}
           />
 
           <div className="absolute top-5 left-5 flex items-center gap-2 font-code text-[10px] tracking-[.14em] text-cyan-100/70 uppercase">
@@ -164,7 +167,7 @@ return (
                 </h3>
 
                 <p className="mt-2 font-code text-xs tracking-[.12em] text-white/70">
-                  {selected.country} · {selected.city}
+                  {selected.country} 
                 </p>
               </div>
 

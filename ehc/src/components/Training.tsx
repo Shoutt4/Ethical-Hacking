@@ -1,4 +1,4 @@
-import { CERTS, COURSES } from '../lib/data'
+import { COURSES } from '../lib/data'
 import Reveal from './Reveal'
 
 export default function Training() {
