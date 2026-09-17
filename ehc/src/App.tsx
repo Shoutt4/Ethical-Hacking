@@ -3,10 +3,9 @@ import { Hero } from './components/Hero';
 import { Stats } from './components/Stats';
 import { Features } from './components/Features';
 import { Functionalities } from './components/Functionalities';
-import { ProductSpotlight } from './components/ProductSpotlight';
 import { CyberSOC } from './components/CyberSOC';
-import { Classification } from './components/Classification';
 import { Partners } from './components/Partners';
+import { Channels } from './components/Channels';
 import { Clients } from './components/Clients';
 import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
@@ -49,10 +48,11 @@ export default function App(){
 
       <Features/>
       <Functionalities/>
-      <ProductSpotlight/>
+      {/*<ProductSpotlight/>*/}
       <CyberSOC/>
-      <Classification/>
+      {/*<Classification/>*/}
       <Partners/>
+      <Channels/>
       <Clients/>
       <CTA/>
       <Footer/>

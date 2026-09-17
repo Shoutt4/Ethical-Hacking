@@ -1,1 +1,18 @@
-import {useState} from 'react';import {AnimatePresence,motion} from 'framer-motion';import {clients} from '../data/pentest365';import {Reveal} from './Reveal';const filters=['Todos','Panamá','Chile','Bolivia','México'];export function Clients(){const[filter,setFilter]=useState('Todos');const current=clients.filter(x=>filter==='Todos'||x[1]===filter);return <section id="clientes" className="section clients"><Reveal><p className="eyebrow"><span></span> CONFIANZA REGIONAL</p><h2>Empresas que confían<br/><em>en Pentest365.</em></h2></Reveal><div className="filters" role="group" aria-label="Filtrar clientes">{filters.map(x=><button key={x} onClick={()=>setFilter(x)} className={x===filter?'selected':''}>{x}</button>)}</div><motion.div layout className="client-grid"><AnimatePresence mode="popLayout">{current.map(([name,country])=><motion.div layout initial={{opacity:0,scale:.94}} animate={{opacity:1,scale:1}} exit={{opacity:0,scale:.94}} key={name}><b>{name}</b><span>{country}</span></motion.div>)}</AnimatePresence></motion.div></section>}
+import { Reveal } from './Reveal'
+import { InteractiveClientExplorer } from './InteractiveClientExplorer'
+
+export function Clients() {
+  return (
+    <section id="clientes" className="section clients">
+      <Reveal>
+        <p className="eyebrow"><span></span> CASOS DE ÉXITO <span></span></p>
+        <h2>Conozca a nuestros clientes:<br /><em>desde el inicio hasta una marca global.</em></h2>
+        <p className="section-copy clients-copy">
+          Cada organización enfrenta retos únicos. Estos casos muestran cómo Pentest365 se adapta a la realidad de cada cliente para proteger lo que más importa.
+        </p>
+      </Reveal>
+
+      <InteractiveClientExplorer />
+    </section>
+  )
+}
