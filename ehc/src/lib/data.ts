@@ -156,6 +156,7 @@ export interface Course {
   day: string;
   month: string;
   title: string;
+  image? : string
   modality: string;
   hours: string;
   code: string;
@@ -166,6 +167,7 @@ export const COURSES: Course[] = [
     day: "15",
     month: "SEP",
     title: "Certified Professional Pentester",
+    image: "https://firebasestorage.googleapis.com/v0/b/generacionsoftware-d979b.firebasestorage.app/o/videoplayback_zKC2lRAh.gif?alt=media&token=508c1c84-407f-4d04-9539-d2e9e6edcfcd",
     modality: "Presencial · Panamá",
     hours: "40 h",
     code: "CPPT",
@@ -174,6 +176,7 @@ export const COURSES: Course[] = [
     day: "06",
     month: "OCT",
     title: "Web Applications Security Auditor",
+    image : "https://firebasestorage.googleapis.com/v0/b/generacionsoftware-d979b.firebasestorage.app/o/Captura%20de%20pantalla%202026-09-17%20235627.png?alt=media&token=0c6d8d83-e7ec-40f4-9672-8d095c346953",
     modality: "Live Online",
     hours: "32 h",
     code: "WASA",
