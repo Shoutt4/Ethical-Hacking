@@ -19,31 +19,52 @@ export default function Training() {
           {COURSES.map((course, i) => (
             <Reveal key={course.code} className={i > 0 ? 'reveal-delay-1' : ''}>
               <article
-                className={`training-card group flex h-full flex-col border border-edge p-7 ${
+                className={`training-card group relative flex h-full flex-col overflow-hidden border border-edge p-7 ${
                   i === COURSES.length - 1 ? 'md:border-dashed' : ''
                 }`}
               >
-                <div className="mb-6 flex items-baseline gap-3 font-code">
-                  <span className="text-[44px] leading-none font-medium text-white transition-colors duration-300 group-hover:text-volt">{course.day}</span>
-                  <span className="text-sm tracking-[3px] text-volt">{course.month}</span>
+            
+                <div className="relative -mx-7 -mt-7 mb-6 h-48 w-[calc(100%+3.5rem)] overflow-hidden">
+                  <img
+                    src={course.image}
+                    alt={course.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    style={{
+                      maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)',
+                      WebkitMaskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)'
+                    }}
+                  />
+                  
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0a0a0a]/80 pointer-events-none" />
                 </div>
-                <h3 className="mb-2 font-display text-xl leading-snug tracking-wide text-white uppercase transition-colors duration-300 group-hover:text-volt-light">
-                  {course.title}
-                </h3>
-                <p className="mb-1 font-code text-xs tracking-wide text-fog">{course.modality}</p>
-                <p className="font-code text-xs tracking-wide text-fog">Duración: {course.hours}</p>
-                <a
-                  href="#contacto"
-                  className="mt-6 inline-flex items-center justify-center gap-2.5 border border-edge-strong px-4 py-3 text-xs font-bold tracking-[1.5px] text-white uppercase no-underline transition-all duration-300 hover:border-volt hover:text-volt-light hover:shadow-[0_0_15px_rgba(182,229,55,.08)]"
-                >
-                  Inscribirme · {course.code}
-                </a>
+
+          
+                <div className="flex flex-1 flex-col justify-between">
+                  <div>
+                    <div className="mb-6 flex items-baseline gap-3 font-code">
+                      <span className="text-[44px] leading-none font-medium text-white transition-colors duration-300 group-hover:text-volt">
+                        {course.day}
+                      </span>
+                      <span className="text-sm tracking-[3px] text-volt">{course.month}</span>
+                    </div>
+                    <h3 className="mb-2 font-display text-xl leading-snug tracking-wide text-white uppercase transition-colors duration-300 group-hover:text-volt-light">
+                      {course.title}
+                    </h3>
+                    <p className="mb-1 font-code text-xs tracking-wide text-fog">{course.modality}</p>
+                    <p className="font-code text-xs tracking-wide text-fog">Duración: {course.hours}</p>
+                  </div>
+
+                  <a
+                    href="#contacto"
+                    className="mt-6 inline-flex items-center justify-center gap-2.5 border border-edge-strong px-4 py-3 text-xs font-bold tracking-[1.5px] text-white uppercase no-underline transition-all duration-300 hover:border-volt hover:text-volt-light hover:shadow-[0_0_15px_rgba(182,229,55,.08)]"
+                  >
+                    Inscribirme · {course.code}
+                  </a>
+                </div>
               </article>
             </Reveal>
           ))}
         </div>
-
-         
       </div>
     </section>
   )

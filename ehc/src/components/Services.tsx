@@ -74,9 +74,7 @@ export default function Services() {
       </h3>
     </div>
 
-    {/* 3 columnas fijas: Icono | Alcance | Objetivo - altura de tarjeta intacta */}
 <div className="mt-6 grid border-y border-[#cbd5d8] lg:grid-cols-[180px_minmax(0,1.2fr)_minmax(0,1fr)]">
-  {/* 01 · ICONO */}
   <div className="flex h-full flex-col py-5 lg:pr-6">
     
     <div className="mt-5 flex flex-1 flex-col items-center justify-center text-center">
@@ -90,7 +88,6 @@ export default function Services() {
     </div>
   </div>
 
-  {/* 02 · ALCANCE */}
   <div className="border-[#cbd5d8] py-5 lg:border-l lg:px-6 flex flex-col min-w-0">
     <span className="font-code text-[10px] tracking-[.15em] uppercase" style={{ color: theme.color }}>
       · ALCANCE
@@ -101,8 +98,6 @@ export default function Services() {
       </p>
     </div>
   </div>
-
-  {/* 03 · OBJETIVO */}
   <div className="border-[#cbd5d8] py-5 lg:border-l lg:pl-6 flex flex-col min-w-0">
     <span className="font-code text-[10px] tracking-[.15em] uppercase" style={{ color: theme.color }}>
       · OBJETIVO

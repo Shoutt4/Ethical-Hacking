@@ -56,12 +56,10 @@ const DelicateAsciiDots = ({
     const width = containerRect.width;
     const height = containerRect.height;
 
-    // Store dimensions for coordinate calculations
     dimensionsRef.current = { width, height };
 
     const dpr = window.devicePixelRatio || 1;
 
-    // Set canvas size to match container
     canvas.width = width * dpr;
     canvas.height = height * dpr;
 
@@ -99,7 +97,6 @@ const DelicateAsciiDots = ({
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      // Convert screen coordinates to grid coordinates
       const { width, height } = dimensionsRef.current;
       const cellWidth = width / gridSize;
       const cellHeight = height / gridSize;
@@ -113,8 +110,6 @@ const DelicateAsciiDots = ({
         time: Date.now(),
         intensity: 2,
       });
-
-      // Clean up old waves
       const now = Date.now();
       clickWaves.current = clickWaves.current.filter(
         (wave) => now - wave.time < 4000
@@ -172,7 +167,6 @@ const DelicateAsciiDots = ({
     const { width, height } = dimensionsRef.current;
     if (width === 0 || height === 0) return;
 
-    // Clear canvas
     ctx.fillStyle = backgroundColor;
     ctx.fillRect(0, 0, width, height);
 
@@ -180,15 +174,12 @@ const DelicateAsciiDots = ({
       .fill(0)
       .map(() => Array(gridSize).fill(null));
 
-    // Calculate cell dimensions
     const cellWidth = width / gridSize;
     const cellHeight = height / gridSize;
 
-    // Convert mouse position to grid coordinates
     const mouseGridX = mouseRef.current.x / cellWidth;
     const mouseGridY = mouseRef.current.y / cellHeight;
 
-    // Create mouse wave
     const mouseWave: Wave = {
       x: mouseGridX,
       y: mouseGridY,
@@ -198,12 +189,10 @@ const DelicateAsciiDots = ({
       speed: 1,
     };
 
-    // Calculate wave interference
     for (let y = 0; y < gridSize; y++) {
       for (let x = 0; x < gridSize; x++) {
         let totalWave = 0;
 
-        // Sum all wave contributions
         const allWaves = wavesRef.current.concat([mouseWave]);
 
         allWaves.forEach((wave) => {

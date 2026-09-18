@@ -4,7 +4,6 @@ import Reveal from './Reveal'
 export default function About() {
   return (
     <section id="nosotros" className="relative scroll-mt-24 overflow-hidden border-t border-edge bg-coal py-20 md:py-24">
-      {/* grid sutil */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.035]"
