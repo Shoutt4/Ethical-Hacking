@@ -1,68 +1,29 @@
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { functionalities } from "../data/pentest365";
-import { Dashboard } from "./Hero";
 import { Reveal } from "./Reveal";
+import { FeatureBento } from "./Capabilities/FeatureBento";
+
 export function Functionalities() {
-  const [active, setActive] = useState(0);
-  const f = functionalities[active];
   return (
-    <section id="funcionalidades" className="section functionality-section">
-      <Reveal>
-        <p className="eyebrow">
-          <span></span> CAPACIDADES
-        </p>
-        <h2>
-          Todo lo que necesitas para
-          <br />
-          <em>anticiparte a las amenazas.</em>
-        </h2>
-      </Reveal>
-      <div className="function-layout">
-        <div
-          className="function-list"
-          role="tablist"
-          aria-label="Funcionalidades"
-        >
-          {functionalities.map((item, i) => (
-            <button
-              role="tab"
-              aria-selected={i === active}
-              className={i === active ? "active" : ""}
-              onClick={() => setActive(i)}
-              key={item.title}
-            >
-              <span>0{i + 1}</span>
-              {item.title}
-              <b>→</b>
-            </button>
-          ))}
-        </div>
-        <div className="function-display">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={f.title}
-              initial={{ opacity: 0, x: 15 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -12 }}
-              transition={{ duration: 0.28 }}
-            >
-              <p className="eyebrow soft">INTELIGENCIA OPERACIONAL</p>
-              <h3>{f.title}</h3>
-              <p>{f.copy}</p>
-              <div className="tags">
-                {f.tags.map((x) => (
-                  <span key={x}>✓ {x}</span>
-                ))}
-              </div>
-              <div className="function-metric">
-                <b>{f.metric}</b>
-                <span>{f.label}</span>
-              </div>
-              <Dashboard mode={active === 1 ? "ports" : "overview"} />
-            </motion.div>
-          </AnimatePresence>
-        </div>
+    <section
+      id="funcionalidades"
+      className="relative overflow-hidden bg-[#f7f9fc] py-20 md:py-28"
+    >
+      {/* luz sutil superior para cohesionar con la sección de Características */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_50%_0%,rgba(14,165,233,0.05),transparent_55%)]"
+      />
+      <div className="relative mx-auto w-full max-w-[1180px] px-5 md:px-8">
+        <Reveal>
+          <p className="eyebrow !text-sky-600">
+            <span className="!bg-sky-500"></span> CAPACIDADES
+          </p>
+          <h2 className="!text-slate-900">
+            Todo lo que necesitas para
+            <br />
+            <em className="!text-sky-600">anticiparte a las amenazas.</em>
+          </h2>
+        </Reveal>
+        <FeatureBento />
       </div>
     </section>
   );
