@@ -78,18 +78,101 @@ export function Channels() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={reduced ? undefined : { opacity: 0, y: -8 }}
                 transition={{ duration: 0.26, ease: 'easeOut' }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  height: '100%',
+                  minHeight: '450px',
+                  width: '100%',
+                  padding: '2rem 1.5rem',
+                  boxSizing: 'border-box'
+                }}
               >
-                <p className="channel-label">
-                  <b>Contacto de canales</b>
+
+                <div
+                  style={{
+                    width: '64px',
+                    height: '64px',
+                    borderRadius: '50%',
+                    backgroundColor: '#e6f7ff',
+                    color: '#00a3e0',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '1.5rem'
+                  }}
+                >
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+
+                <p
+                  style={{
+                    color: '#00a3e0',
+                    fontSize: '0.8rem',
+                    fontWeight: 700,
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase',
+                    marginBottom: '0.5rem'
+                  }}
+                >
+                  ENVIADO CORRECTAMENTE
                 </p>
-                <span aria-hidden="true">✓</span>
-                <p>¡Solicitud de Demo enviada correctamente!</p>
+
+                <h3
+                  style={{
+                    fontSize: '1.875rem',
+                    fontWeight: 700,
+                    color: '#0f172a',
+                    margin: '0 0 0.75rem 0',
+                    lineHeight: 1.2
+                  }}
+                >
+                  Gracias por contactarnos.
+                </h3>
+                <p
+                  style={{
+                    color: '#64748b',
+                    fontSize: '0.95rem',
+                    maxWidth: '340px',
+                    margin: '0 0 2rem 0',
+                    lineHeight: 1.5
+                  }}
+                >
+                  Un especialista de Ethical Hacking Consultores responderá tu solicitud muy pronto.
+                </p>
                 <button
                   type="button"
                   className="channel-reset"
                   onClick={resetForm}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#00a3e0',
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    cursor: 'pointer',
+                    padding: 0,
+                    textDecoration: 'none',
+                    margin: '0 auto',
+                    display: 'block',
+                    textAlign: 'center'
+                  }}
                 >
-                  Enviar otra consulta
+                  Enviar otro mensaje
                 </button>
               </motion.div>
             ) : (
