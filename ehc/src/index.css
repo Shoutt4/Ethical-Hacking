@@ -131,3 +131,15 @@
 @media(max-width:600px){.cybersoc{padding:66px 0 78px}.cybersoc-inner{padding:0 20px}.cybersoc-grid{gap:44px}.cybersoc h2{font-size:35px}.cybersoc-p{font-size:13px}.cybersoc-media{max-width:420px;padding-left:0}.soc-photo{width:74%;margin:-44px auto 0}.cybersoc-values{grid-template-columns:1fr;gap:0;margin-top:72px;padding-top:8px;border-top:0}.cv-item{padding:20px 0;border-top:1px solid #e1e8ef}.cv-item:first-child{border-top:0}.cv-item+.cv-item{border-left:0;padding-left:0}}
 
 
+.channel-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Asegura ocupar todo el alto del contenedor */
+  min-height: 420px; /* Ajusta según el alto original de tu formulario */
+}
+
+.channel-success {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
