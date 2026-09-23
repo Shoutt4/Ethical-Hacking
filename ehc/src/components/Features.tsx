@@ -13,7 +13,7 @@ export function Features(){
           <p className="eyebrow !text-sky-600"><span className="!bg-sky-500"></span> LA PLATAFORMA</p>
           <h2 className="!text-slate-900">Una plataforma diseñada<br/><em className="!text-sky-600">para reducir el riesgo.</em></h2>
           <p className="mt-4 max-w-[640px] text-[15px] leading-7 text-slate-600">
-            De tarjetas estáticas a carrusel escalonado — misma información, experiencia moderna, táctil y memorable.
+             
           </p>
         </Reveal>
 
