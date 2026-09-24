@@ -231,7 +231,10 @@ export function Channels() {
                       Escoge una licencia
                     </option>
                     <option value="licencia-todo-en-uno">
-                      Licencia todo en uno
+                      MSSP
+                    </option>
+                    <option value="licencia-todo-en-uno">
+                      Reseller
                     </option>
                   </select>
                 </div>
@@ -289,9 +292,7 @@ export function Channels() {
                 transition={{ duration: 0.26, ease: 'easeOut' }}
               >
                 <div className="partner-stage">
-                  <span className="partner-status">
-                    <i aria-hidden="true"></i> Partner activo
-                  </span>
+                   
                   <img
                     src={partner.logo}
                     alt={`Logo de ${partner.name}`}

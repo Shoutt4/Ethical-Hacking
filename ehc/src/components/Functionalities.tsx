@@ -11,8 +11,10 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { ConstellationBg } from "./ConstellationBg";
+import { MonitorSlideshow } from "./MonitorSlideshow";
 
 /* ─── Assets ────────────────────────────────────────────────── */
+
 import crawlingImage1 from "../assets/pentest365/features/crawling y monitoreo G/feature-1.png";
 import crawlingImage2 from "../assets/pentest365/features/crawling y monitoreo G/feature-3.png";
 
@@ -25,6 +27,11 @@ import vulnerabilityImage3 from "../assets/pentest365/features/analisis de vulne
 
 import assessmentImage1 from "../assets/pentest365/features/features extras/recon-vuln-assessment.png";
 import assessmentImage2 from "../assets/pentest365/features/features extras/recon-monitoring.png";
+import assessmentImage3 from "../assets/pentest365/features/features extras/recon-access-point-dns.png";
+import assessmentImage4 from "../assets/pentest365/features/features extras/recon-dns.png";
+import assessmentImage5 from "../assets/pentest365/features/features extras/recon-email.png";
+import assessmentImage6 from "../assets/pentest365/features/features extras/recon-licence.png";
+import assessmentImage7 from "../assets/pentest365/features/features extras/recon-metadata.png";
 
 import webTechImage1 from "../assets/pentest365/features/analisis de tec web/web-tech-0.png";
 import webTechImage2 from "../assets/pentest365/features/analisis de tec web/web-tech-1.png";
@@ -41,6 +48,7 @@ import servicesImage1 from "../assets/pentest365/features/descubrimiento de serv
 import servicesImage2 from "../assets/pentest365/features/descubrimiento de servicios/service-discovery-2.png";
 
 /* ─── Data ──────────────────────────────────────────────────── */
+
 const primaryFeatures = [
   {
     number: "01",
@@ -48,7 +56,15 @@ const primaryFeatures = [
     title: "Evaluación de vulnerabilidades",
     description:
       "Obtén una visión clara de tu exposición digital. Pentest365 analiza tus activos y prioriza los riesgos para que puedas actuar con información concreta.",
-    images: [assessmentImage1, assessmentImage2, vulnerabilityImage1],
+    images: [
+      assessmentImage1,
+      assessmentImage2,
+      assessmentImage3,
+      assessmentImage4,
+      assessmentImage5,
+      assessmentImage6,
+      assessmentImage7
+    ],
     alt: "Panel de evaluación de vulnerabilidades de Pentest365",
     icon: ShieldCheck,
     tags: ["Evaluación", "Riesgo", "Activos"],
@@ -127,17 +143,16 @@ const secondaryFeatures = [
   },
 ];
 
-/* ─── Image Slideshow (Crossfade Carousel) ───────────────────── */
+/* ─── Image Slideshow ───────────────────────────────────────── */
+
 function ImageSlideshow({
   images,
   alt,
   interval = 3800,
-  maxHeightClass = "max-h-[410px]",
 }: {
   images: string[];
   alt: string;
   interval?: number;
-  maxHeightClass?: string;
 }) {
   const [index, setIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -145,9 +160,11 @@ function ImageSlideshow({
 
   useEffect(() => {
     if (images.length <= 1 || isHovered || reducedMotion) return;
+
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
     }, interval);
+
     return () => clearInterval(timer);
   }, [images.length, isHovered, interval, reducedMotion]);
 
@@ -155,7 +172,7 @@ function ImageSlideshow({
 
   return (
     <div
-      className="relative flex h-full w-full items-center justify-center overflow-hidden"
+      className="relative h-[360px] w-full overflow-hidden sm:h-[390px] lg:h-[420px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -164,17 +181,31 @@ function ImageSlideshow({
           key={images[index]}
           src={images[index]}
           alt={`${alt} (vista ${index + 1})`}
-          initial={reducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={reducedMotion ? { opacity: 0 } : { opacity: 1 }}
-          transition={{ duration: 0.7, ease: "easeInOut" }}
-          className={`${maxHeightClass} h-auto w-full object-contain`}
+          initial={
+            reducedMotion
+              ? { opacity: 1 }
+              : { opacity: 0, scale: 0.985 }
+          }
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          exit={
+            reducedMotion
+              ? { opacity: 0 }
+              : { opacity: 0, scale: 0.985 }
+          }
+          transition={{
+            duration: 0.6,
+            ease: "easeInOut",
+          }}
+          draggable={false}
+          className="absolute inset-0 h-full w-full object-contain p-4 sm:p-5 lg:p-6"
         />
       </AnimatePresence>
 
-      {/* Crossfade indicator dots */}
       {images.length > 1 && (
-        <div className="absolute bottom-2.5 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-full border border-cyan-500/20 bg-slate-950/80 px-3 py-1 shadow-lg backdrop-blur-md">
+        <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-full border border-cyan-500/20 bg-slate-950/85 px-3 py-1.5 shadow-lg backdrop-blur-md">
           {images.map((_, i) => (
             <button
               key={i}
@@ -194,13 +225,36 @@ function ImageSlideshow({
   );
 }
 
-/* ─── Local Relative Connector Between Primary Nodes ─────────── */
+/* ─── Local Relative Connector ──────────────────────────────── */
+
 function LocalPrimaryConnector({
   direction,
 }: {
   direction: "left-to-right" | "right-to-left";
 }) {
   const isLTR = direction === "left-to-right";
+
+  // Rutas distintas para LTR y RTL. Orígenes ajustados a y=4 y y=116 para evitar que los círculos se recorten con el viewBox.
+  const pointsLTR = "220,4 350,65 520,35 620,116";
+  const pointsRTL = "580,4 450,45 280,85 180,116";
+
+  const currentPoints = isLTR ? pointsLTR : pointsRTL;
+
+  const waypointsLTR = [
+    { cx: 220, cy: 4, r: 2.5, fill: "#c7d2fe", opacity: 0.9 },
+    { cx: 350, cy: 65, r: 2.5, fill: "#a5f3fc", opacity: 0.6, pulse: true },
+    { cx: 520, cy: 35, r: 3, fill: "#38bdf8", opacity: 0.8 },
+    { cx: 620, cy: 116, r: 2.5, fill: "#a5f3fc", opacity: 0.7 },
+  ];
+
+  const waypointsRTL = [
+    { cx: 580, cy: 4, r: 2.5, fill: "#c7d2fe", opacity: 0.9 },
+    { cx: 450, cy: 45, r: 3, fill: "#a5f3fc", opacity: 0.8, pulse: true },
+    { cx: 280, cy: 85, r: 2.5, fill: "#38bdf8", opacity: 0.6 },
+    { cx: 180, cy: 116, r: 2.5, fill: "#a5f3fc", opacity: 0.7 },
+  ];
+
+  const waypoints = isLTR ? waypointsLTR : waypointsRTL;
 
   return (
     <div className="relative my-2 flex h-24 w-full items-center justify-center sm:h-32">
@@ -224,79 +278,45 @@ function LocalPrimaryConnector({
           </linearGradient>
         </defs>
 
+        {/* Glow de la línea */}
         <polyline
-          points={
-            isLTR
-              ? "150,10 150,50 400,60 650,70 650,110"
-              : "650,10 650,50 400,60 150,70 150,110"
-          }
+          points={currentPoints}
           fill="none"
           stroke={`url(#connector-grad-${direction})`}
-          strokeWidth="6"
+          strokeWidth="4"
           strokeOpacity="0.15"
           strokeLinejoin="miter"
         />
 
+        {/* Línea principal quebrada */}
         <polyline
-          points={
-            isLTR
-              ? "150,10 150,50 400,60 650,70 650,110"
-              : "650,10 650,50 400,60 150,70 150,110"
-          }
+          points={currentPoints}
           fill="none"
           stroke={`url(#connector-grad-${direction})`}
-          strokeWidth="2"
-          strokeDasharray="6 8"
-          strokeLinejoin="miter"
+          strokeWidth="1.5"
+          strokeDasharray="4 6"
+          strokeLinejoin="bevel"
         />
 
-        {isLTR ? (
-          <>
-            <circle cx="150" cy="10" r="3" fill="#a5f3fc" />
-            <circle
-              cx="150"
-              cy="50"
-              r="4"
-              fill="#22d3ee"
-              className="animate-pulse"
-            />
-            <circle cx="400" cy="60" r="3.5" fill="#38bdf8" />
-            <circle
-              cx="650"
-              cy="70"
-              r="4"
-              fill="#22d3ee"
-              className="animate-pulse"
-            />
-            <circle cx="650" cy="110" r="3" fill="#a5f3fc" />
-          </>
-        ) : (
-          <>
-            <circle cx="650" cy="10" r="3" fill="#a5f3fc" />
-            <circle
-              cx="650"
-              cy="50"
-              r="4"
-              fill="#22d3ee"
-              className="animate-pulse"
-            />
-            <circle cx="400" cy="60" r="3.5" fill="#38bdf8" />
-            <circle
-              cx="150"
-              cy="70"
-              r="4"
-              fill="#22d3ee"
-              className="animate-pulse"
-            />
-            <circle cx="150" cy="110" r="3" fill="#a5f3fc" />
-          </>
-        )}
+        {/* Nodos / Estrellas intermedias */}
+        {waypoints.map((wp, i) => (
+          <circle
+            key={i}
+            cx={wp.cx}
+            cy={wp.cy}
+            r={wp.r}
+            fill={wp.fill}
+            opacity={wp.opacity}
+            className={wp.pulse ? "animate-pulse" : ""}
+          />
+        ))}
       </svg>
     </div>
   );
 }
 
-/* ─── Primary Node Component ────────────────────────────────── */
+/* ─── Primary Node ───────────────────────────────────────────── */
+
 function PrimaryNode({
   feature,
   index,
@@ -305,30 +325,49 @@ function PrimaryNode({
   index: number;
 }) {
   const Icon = feature.icon;
-  // Node 01 (index 0): Image on Left (lg:order-1), Text on Right (lg:order-2)
-  // Node 02 (index 1): Text on Left (lg:order-1), Image on Right (lg:order-2)
-  // Node 03 (index 2): Image on Left (lg:order-1), Text on Right (lg:order-2)
-  // Node 04 (index 3): Text on Left (lg:order-1), Image on Right (lg:order-2)
+
   const isImageLeft = index % 2 === 0;
-  const isFirstNode = index === 0;
   const reducedMotion = useReducedMotion();
 
   return (
-    <article className="relative grid min-h-[60vh] items-center gap-10 py-12 md:gap-16 lg:grid-cols-2 lg:py-16">
-      {/* Text Container */}
+    <article
+  className={`relative grid items-center gap-10 md:gap-16 lg:grid-cols-2 ${
+    index === 0
+      ? "pt-0 pb-12 lg:pb-16"
+      : "py-12 lg:py-16"
+  }`}
+>
+
       <motion.div
-        initial={reducedMotion ? false : { opacity: 0, y: 28 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 0.65, ease: "easeOut" }}
-        className={`relative z-10 ${isImageLeft ? "lg:order-2" : "lg:order-1"}`}
+        initial={
+          reducedMotion
+            ? false
+            : {
+                opacity: 0,
+                y: 28,
+              }
+        }
+        whileInView={{
+          opacity: 1,
+          y: 0,
+        }}
+        viewport={{
+          once: true,
+          amount: 0.25,
+        }}
+        transition={{
+          duration: 0.65,
+          ease: "easeOut",
+        }}
+        className={`relative z-10 ${
+          isImageLeft ? "lg:order-2" : "lg:order-1"
+        }`}
       >
         <div className="mb-6 flex items-center gap-3">
           <span className="grid size-11 place-items-center rounded-xl border border-cyan-300/20 bg-cyan-300/10 text-cyan-200 shadow-[0_0_15px_rgba(34,211,238,0.15)]">
             <Icon size={20} strokeWidth={1.7} />
           </span>
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200/75">
-            Nodo {feature.number} <span className="px-2 text-white/20">/</span>{" "}
             {feature.eyebrow}
           </span>
         </div>
@@ -336,6 +375,7 @@ function PrimaryNode({
         <h3 className="max-w-xl text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
           {feature.title}
         </h3>
+
         <p className="mt-6 max-w-xl text-base leading-8 text-slate-300">
           {feature.description}
         </p>
@@ -352,55 +392,76 @@ function PrimaryNode({
         </ul>
       </motion.div>
 
-      {/* Image Container (3D Isometric effect ONLY for first node index === 0) */}
+      {/* ─── IMAGE ───────────────────────────────────────────── */}
+
       <motion.div
-        initial={reducedMotion ? false : { opacity: 0, scale: 0.97 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7, delay: 0.08, ease: "easeOut" }}
-        className={`relative z-10 ${
-          isImageLeft ? "lg:order-1" : "lg:order-2"
-        }`}
+  initial={
+    reducedMotion
+      ? false
+      : {
+          opacity: 0,
+          scale: 0.97,
+        }
+  }
+  whileInView={{
+    opacity: 1,
+    scale: 1,
+  }}
+  viewport={{
+    once: true,
+    amount: 0.2,
+  }}
+  transition={{
+    duration: 0.7,
+    delay: 0.08,
+    ease: "easeOut",
+  }}
+  className={`relative z-10 ${
+    isImageLeft ? "lg:order-1" : "lg:order-2"
+  }`}
+>
+  {index === 0 ? (
+    <MonitorSlideshow images={feature.images} />
+  ) : (
+    <>
+      {/* Glow */}
+      <div
+        className="absolute -inset-8 rounded-[2rem] bg-cyan-400/[0.09] blur-3xl"
+        aria-hidden
+      />
+
+      {/* CONTENEDOR FIJO */}
+      <div
+        className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-950/80 shadow-2xl"
       >
-        <div
-          className="absolute -inset-8 rounded-[2rem] bg-cyan-400/[0.09] blur-3xl"
-          aria-hidden
-        />
-        <div 
-          className="relative rounded-2xl border border-white/10 bg-slate-950/80 p-3 shadow-2xl backdrop-blur transition-transform duration-500 hover:scale-[1.02]"
-          style={
-            index === 0 
-              ? { 
-                  transform: "perspective(900px) rotateY(22deg) rotateX(4deg) rotateZ(-1deg)", 
-                  transformStyle: "preserve-3d",
-                  boxShadow: "-30px 20px 50px -10px rgba(0,0,0,0.6), -10px 10px 20px rgba(8, 145, 178, 0.2)"
-                } 
-              : {}
-          }
-        >
-          <div className="mb-3 flex items-center gap-2 px-2 pt-1">
-            <span className="size-2 rounded-full bg-rose-300/70" />
-            <span className="size-2 rounded-full bg-amber-200/70" />
-            <span className="size-2 rounded-full bg-emerald-200/70" />
-            <span className="ml-2 h-px flex-1 bg-white/10" />
-          </div>
-          <div className="grid min-h-[280px] place-items-center overflow-hidden rounded-xl bg-slate-900/70 p-4 sm:min-h-[380px] lg:min-h-[440px]">
-            <ImageSlideshow
-              images={feature.images}
-              alt={feature.alt}
-              maxHeightClass="max-h-[410px]"
-            />
-          </div>
+        {/* Barra superior */}
+        <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3">
+          <span className="size-2 rounded-full bg-rose-300/70" />
+          <span className="size-2 rounded-full bg-amber-200/70" />
+          <span className="size-2 rounded-full bg-emerald-200/70" />
+
+          <span className="ml-2 h-px flex-1 bg-white/10" />
         </div>
-        <span className="absolute -bottom-4 right-5 rounded-full border border-cyan-200/20 bg-slate-950 px-4 py-2 text-xs tracking-widest text-cyan-100/70 shadow-lg">
-          PENTEST365 <span className="text-cyan-300">●</span> {feature.number}
-        </span>
-      </motion.div>
+
+        {/* TODAS LAS IMÁGENES USAN EL MISMO ESPACIO */}
+        <div className="w-full bg-slate-900/70">
+          <ImageSlideshow
+            images={feature.images}
+            alt={feature.alt}
+          />
+        </div>
+      </div>
+
+      
+    </>
+  )}
+</motion.div>
     </article>
   );
 }
 
-/* ─── Secondary Node Component (Tight Fit, Flexible Text, Asymmetrical) ── */
+/* ─── Secondary Node ────────────────────────────────────────── */
+
 function SecondaryNode({
   feature,
   index,
@@ -412,14 +473,31 @@ function SecondaryNode({
 }) {
   const Icon = feature.icon;
   const reducedMotion = useReducedMotion();
+
   const isOddColumn = index % 2 === 1;
 
   return (
     <motion.article
-      initial={reducedMotion ? false : { opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.55, delay: index * 0.08 }}
+      initial={
+        reducedMotion
+          ? false
+          : {
+              opacity: 0,
+              y: 24,
+            }
+      }
+      whileInView={{
+        opacity: 1,
+        y: 0,
+      }}
+      viewport={{
+        once: true,
+        amount: 0.15,
+      }}
+      transition={{
+        duration: 0.55,
+        delay: index * 0.08,
+      }}
       className={`relative flex flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/15 bg-slate-950/80 p-4 shadow-[0_16px_48px_rgba(0,0,0,0.45)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/40 hover:shadow-[0_20px_60px_rgba(34,211,238,0.12)] sm:p-5 ${
         isOddColumn ? "md:translate-y-12 lg:translate-y-16" : ""
       } ${className}`}
@@ -429,27 +507,27 @@ function SecondaryNode({
           <span className="text-xs font-semibold tracking-[0.18em] text-cyan-200/70">
             NODO {feature.number}
           </span>
+
           <span className="grid size-9 place-items-center rounded-lg border border-cyan-300/20 bg-cyan-300/[0.08] text-cyan-200 shadow-[0_0_12px_rgba(34,211,238,0.15)]">
             <Icon size={17} strokeWidth={1.7} />
           </span>
         </div>
 
-        {/* Image Container: Tight Fit, no fixed height restrictions, minimal padding */}
-        <div className="relative overflow-hidden rounded-xl border border-white/[0.08] bg-slate-900/90 p-1.5 sm:p-2">
+        {/* Imagen sin altura fija */}
+        <div className="relative overflow-hidden rounded-xl border border-white/[0.08] bg-slate-900/90">
           <ImageSlideshow
             images={feature.images}
             alt={feature.alt}
-            maxHeightClass="max-h-[220px] sm:max-h-[260px]"
           />
         </div>
       </div>
 
-      {/* Text Section: Flex-1 to naturally grow with long future text without breaking layout */}
-      <div className="mt-4 flex flex-1 flex-col justify-between">
+      <div className="mt-5 flex flex-1 flex-col justify-between">
         <div>
           <h3 className="text-lg font-semibold text-white sm:text-xl">
             {feature.title}
           </h3>
+
           <p className="mt-2 text-sm leading-6 text-slate-300/85">
             {feature.description}
           </p>
@@ -459,14 +537,43 @@ function SecondaryNode({
   );
 }
 
-/* ─── Secondary Constellation Polygon Network (Asymmetrical SVG) ── */
+/* ─── Secondary Constellation Polygon Network ──────────────── */
+
 function SecondaryConstellationNet() {
+  const perimeterPoints =
+    "240,140 380,110 520,230 760,200 820,350 710,500 760,680 600,730 400,580 240,620 180,480 290,300 240,140";
+  const crossPoints = "240,140 350,320 500,410 650,480 760,680";
+
+  const waypoints = [
+    // Main corners
+    { cx: 240, cy: 140, r: 4, opacity: 0.9, color: "#a5f3fc" },
+    { cx: 760, cy: 200, r: 3.5, opacity: 0.8, color: "#38bdf8" },
+    { cx: 760, cy: 680, r: 4, opacity: 0.9, color: "#22d3ee" },
+    { cx: 240, cy: 620, r: 3, opacity: 0.8, color: "#818cf8" },
+    // Top edge
+    { cx: 380, cy: 110, r: 2, opacity: 0.4, color: "#c7d2fe" },
+    { cx: 520, cy: 230, r: 2.5, opacity: 0.6, color: "#38bdf8" },
+    // Right edge
+    { cx: 820, cy: 350, r: 1.5, opacity: 0.3, color: "#a5f3fc" },
+    { cx: 710, cy: 500, r: 2.5, opacity: 0.5, color: "#22d3ee" },
+    // Bottom edge
+    { cx: 600, cy: 730, r: 2, opacity: 0.4, color: "#818cf8" },
+    { cx: 400, cy: 580, r: 1.5, opacity: 0.6, color: "#c7d2fe" },
+    // Left edge
+    { cx: 180, cy: 480, r: 2.5, opacity: 0.5, color: "#38bdf8" },
+    { cx: 290, cy: 300, r: 2, opacity: 0.3, color: "#a5f3fc" },
+    // Cross
+    { cx: 350, cy: 320, r: 1.5, opacity: 0.4, color: "#c7d2fe" },
+    { cx: 500, cy: 410, r: 3, opacity: 0.9, color: "#22d3ee", pulse: true },
+    { cx: 650, cy: 480, r: 2, opacity: 0.5, color: "#818cf8" },
+  ];
+
   return (
     <svg
       aria-hidden="true"
       viewBox="0 0 1000 800"
       preserveAspectRatio="none"
-      className="pointer-events-none absolute inset-0 hidden h-full w-full md:block"
+      className="pointer-events-none absolute inset-0 hidden h-full w-full lg:block"
     >
       <defs>
         <linearGradient
@@ -482,44 +589,44 @@ function SecondaryConstellationNet() {
         </linearGradient>
       </defs>
 
+      {/* Main Perimeter */}
       <polyline
-        points="240,140 760,200 760,680 240,620 240,140"
+        points={perimeterPoints}
         fill="none"
         stroke="url(#sec-constellation-grad)"
         strokeWidth="1.5"
-        strokeDasharray="5 7"
-        strokeLinejoin="miter"
+        strokeDasharray="4 6"
+        strokeLinejoin="bevel"
       />
 
-      <line
-        x1="240"
-        y1="140"
-        x2="760"
-        y2="680"
+      {/* Diagonal Cross */}
+      <polyline
+        points={crossPoints}
+        fill="none"
         stroke="url(#sec-constellation-grad)"
         strokeWidth="1"
-        strokeDasharray="4 8"
-        strokeOpacity="0.5"
+        strokeDasharray="3 5"
+        strokeLinejoin="bevel"
+        strokeOpacity="0.7"
       />
 
-      {[
-        [240, 140],
-        [760, 200],
-        [240, 620],
-        [760, 680],
-        [500, 410],
-      ].map(([cx, cy], i) => (
-        <g key={i}>
-          <circle cx={cx} cy={cy} r="10" fill="#22d3ee" opacity="0.08" />
-          <circle cx={cx} cy={cy} r="4" fill="#22d3ee" opacity="0.3" />
-          <circle cx={cx} cy={cy} r="2" fill="#a5f3fc" opacity="0.9" />
-        </g>
+      {/* Nodes / Stars */}
+      {waypoints.map((wp, i) => (
+        <circle
+          key={i}
+          cx={wp.cx}
+          cy={wp.cy}
+          r={wp.r}
+          fill={wp.color}
+          opacity={wp.opacity}
+          className={wp.pulse ? "animate-pulse" : ""}
+        />
       ))}
     </svg>
   );
 }
 
-/* ─── Main Component ────────────────────────────────────────── */
+
 export function Functionalities() {
   const reducedMotion = useReducedMotion();
 
@@ -530,7 +637,11 @@ export function Functionalities() {
       className="relative isolate overflow-hidden bg-[#030712] text-white"
     >
       {/* Dynamic Canvas Background */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+      >
         <ConstellationBg
           particleCount={180}
           linkDistance={160}
@@ -540,7 +651,8 @@ export function Functionalities() {
         />
       </div>
 
-      {/* Ambient Radial Gradient Overlay */}
+      {/* Ambient Radial Gradient */}
+
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(14,165,233,0.18),transparent_55%)]"
@@ -548,76 +660,110 @@ export function Functionalities() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
         {/* Header */}
-        <header className="mx-auto max-w-3xl py-24 text-center sm:py-32">
+
+        <header className="mx-auto max-w-3xl pt-24 pb-8 text-center sm:pt-32 sm:pb-10">
           <motion.p
-            initial={reducedMotion ? false : { opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            initial={
+              reducedMotion
+                ? false
+                : {
+                    opacity: 0,
+                    y: 12,
+                  }
+            }
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+            }}
             className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200"
           >
             Plataforma de ciberseguridad
           </motion.p>
+
           <motion.h2
             id="funcionalidades-heading"
-            initial={reducedMotion ? false : { opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.08 }}
+            initial={
+              reducedMotion
+                ? false
+                : {
+                    opacity: 0,
+                    y: 16,
+                  }
+            }
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+            }}
+            transition={{
+              delay: 0.08,
+            }}
             className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl"
           >
             Una vista completa de tu{" "}
-            <span className="text-cyan-200">superficie digital</span>
+            <span className="text-cyan-200">
+              superficie digital
+            </span>
           </motion.h2>
+
           <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-slate-300/80">
             Explora las herramientas que te ayudan a descubrir, evaluar y
             monitorear los activos de tu organización.
           </p>
-          <ArrowDown
-            aria-hidden="true"
-            className="mx-auto mt-9 animate-bounce text-cyan-200/70"
-            size={20}
-          />
         </header>
 
-        {/* Primary Nodes 01-04 with Localized Relative Connectors */}
+        {/* Primary Nodes 01-04 */}
+
         <div className="relative">
           {primaryFeatures.map((feature, index) => {
-            const isLast = index === primaryFeatures.length - 1;
+            const isLast =
+              index === primaryFeatures.length - 1;
+
             const connectorDirection =
-              index % 2 === 0 ? "left-to-right" : "right-to-left";
+              index % 2 === 0
+                ? "left-to-right"
+                : "right-to-left";
 
             return (
               <div key={feature.number}>
-                <PrimaryNode feature={feature} index={index} />
+                <PrimaryNode
+                  feature={feature}
+                  index={index}
+                />
+
                 {!isLast && (
-                  <LocalPrimaryConnector direction={connectorDirection} />
+                  <LocalPrimaryConnector
+                    direction={connectorDirection}
+                  />
                 )}
               </div>
             );
           })}
         </div>
 
-        {/* Secondary Nodes 05-08: Staggered Asymmetrical Layout */}
+        {/* Secondary Nodes 05-08 */}
+
         <div className="relative z-10 pb-36 pt-16 sm:pb-48">
           <div className="mb-14 flex items-end justify-between gap-6">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-200/70">
-                Herramientas complementarias
-              </p>
+               
+
               <h3 className="mt-3 text-2xl font-semibold sm:text-3xl">
                 Más señales para investigar
               </h3>
             </div>
-            <span className="hidden text-sm text-slate-400 sm:block">
-              Nodos 05—08
-            </span>
+
+             
           </div>
 
           <div className="relative">
-            {/* Background SVG Constellation Net for Secondary Block */}
             <SecondaryConstellationNet />
 
-            {/* Staggered Asymmetrical Grid */}
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
               {secondaryFeatures.map((feature, index) => (
                 <SecondaryNode
