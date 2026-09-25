@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import { ConstellationBg } from "./ConstellationBg";
 import hero from "../assets/hero.png";
 
@@ -70,9 +70,17 @@ export function Dashboard({ mode = "overview" }: { mode?: string }) {
   );
 }
 
-
 export function Hero() {
   const reducedMotion = useReducedMotion();
+
+  const views: ("video" | "image" | "dashboard")[] = ["video", "image", "dashboard"];
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % views.length);
+  };
+
+  const currentView = views[currentIndex];
 
   return (
     <section
@@ -80,17 +88,15 @@ export function Hero() {
       aria-labelledby="hero-heading"
       className="hero-section relative isolate overflow-hidden !bg-[#030712] text-white"
     >
-
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-60">
         <ConstellationBg
-          particleCount={85}     
-          linkDistance={125}      
-          mouseRadius={160}       
-          baseOpacity={0.45}      
+          particleCount={85}
+          linkDistance={125}
+          mouseRadius={160}
+          baseOpacity={0.45}
           color="56,189,248"
         />
       </div>
-
 
       <div
         aria-hidden="true"
@@ -102,13 +108,13 @@ export function Hero() {
       />
 
       <div className="hero-wrap relative z-10">
+
         <motion.div
           className="hero-copy relative"
           initial={reducedMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: "easeOut" }}
         >
-
           <div aria-hidden className="absolute -inset-6 -z-10 rounded-[20px] bg-black/30 backdrop-blur-[2px] md:-inset-8" />
           
           <p className="eyebrow !text-white/90">
@@ -152,15 +158,85 @@ export function Hero() {
           </div>
         </motion.div>
 
+
         <motion.div
-          className="hero-visual"
+          className="hero-visual relative flex items-center justify-center"
           initial={reducedMotion ? false : { opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.18, duration: 0.65, ease: "easeOut" }}
         >
           <div className="orb"></div>
-          <img className="hero-stack" src={hero} alt="Capas de seguridad digital y monitoreo Pentest365" />
-          <Dashboard />
+
+          <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-slate-900/60 shadow-2xl backdrop-blur-sm min-h-[320px]">
+            <AnimatePresence mode="wait">
+              {currentView === "video" && (
+                <motion.div
+                  key="video"
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{ duration: 0.35 }}
+                  className="aspect-video w-full"
+                >
+                  <iframe
+                    className="h-full w-full rounded-2xl border-0"
+                    src="https://www.youtube.com/embed/pYEdJH1YXzY?autoplay=1&mute=1&rel=0"
+                    title="Pentest365 Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </motion.div>
+              )}
+
+              {currentView === "image" && (
+                <motion.div
+                  key="image"
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{ duration: 0.35 }}
+                >
+                  <img
+                    className="hero-stack h-auto w-full rounded-2xl object-cover"
+                    src={hero}
+                    alt="Capas de seguridad digital y monitoreo Pentest365"
+                  />
+                </motion.div>
+              )}
+
+              {currentView === "dashboard" && (
+                <motion.div
+                  key="dashboard"
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{ duration: 0.35 }}
+                  className="p-2"
+                >
+                  <Dashboard />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+        
+            <button
+              onClick={handleNext}
+              aria-label="Siguiente contenido"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-30 flex size-10 items-center justify-center rounded-full border border-white/20 bg-slate-950/70 text-white backdrop-blur-md transition-all hover:scale-110 hover:border-sky-400 hover:bg-sky-500 hover:shadow-[0_0_15px_rgba(56,189,248,0.5)] active:scale-95"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+                className="size-5"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
+          </div>
+
           <div className="security-chip !border-white/10 !bg-white !shadow-xl">
             <span className="!bg-emerald-500 !text-white">✓</span>
             <div>
