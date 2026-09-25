@@ -1,46 +1,49 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Search, RefreshCw, Command, TrendingDown, LayoutGrid, Zap } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Search, RefreshCw, Command, TrendingDown, LayoutGrid, Zap, BarChart3, Trophy, Network, Cpu } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { motion } from 'framer-motion';
 
-const SQRT_5000 = Math.sqrt(5000);
-
-const featureIcons = [Search, RefreshCw, Command, TrendingDown, LayoutGrid, Zap] as const;
+const featureIcons = [BarChart3, Trophy, Network, TrendingDown, Cpu, Zap] as const;
 
 const featuresData = [
   {
     id: 1,
     titulo: "Descubrimiento pasivo de Vulnerabilidades",
     descripcion: "P365 es la única plataforma que realiza un reconocimiento 100% pasivo de activos, puertos, tecnologías web, vulnerabilidades, certificados SSL/TLS, gráficas de DNS, sub dominios, emails y mucho más sin necesidad de escanear o conectarse a los objetivos analizados.",
-    icono: Search,
+    icono: BarChart3,
   },
   {
     id: 2,
     titulo: "Desarrollo persistente y Actualizaciones Automáticas",
     descripcion: "Todo el código fuente está siempre bajo auditoría y revisiones de seguridad, las mejoras y actualizaciones de la plataforma jamás paran y el desarrollo de nuevas funcionalidades está basado en un road map de sugerencias hechas por un equipo de expertos y nuestros propios usuarios.",
+    icono: Trophy,
   },
   {
     id: 3,
     titulo: "Facilidad de Uso",
     descripcion: "A diferencia de otras soluciones que tienen múltiples y complejas capas de configuración, en Pentest365 quitamos toda esa complejidad, con el propósito de brindar una experiencia intuitiva y amistosa para el usuario y que este pueda detectar y remediar las vulnerabilidades más rápido y con mayor eficacia.",
+    icono: Network,
   },
   {
     id: 4,
     titulo: "Reduce el Riesgo, Costo y Tiempo",
     descripcion: "Nuestra tecnología está orientada a reducir el riesgo tecnológico, bajar el costo operativo y acortar los tiempos de reacción y remediación para optimizar el ROI de tu organización.",
+    icono: TrendingDown,
   },
   {
     id: 5,
     titulo: "Gestión Centralizada",
     descripcion: "Reduce la necesidad de recursos humanos, mejorando la rentabilidad general en la protección de la seguridad y todo desde una consola centralizada que te permita expandir tus capacidades de auditoría sin incrementar tus recursos humanos.",
+    icono: Cpu,
   },
   {
     id: 6,
     titulo: "Solución sin agentes",
     descripcion: "En cuestión de minutos puedes comenzar a escanear toda la Infraestructura de TI de tu organización, sin complicadas y largas instalaciones de agentes en todos los equipos. Tanto en la versión Cloud como Onpremise, la tecnología de P365 no requiere de agentes.",
+    icono: Zap,
   },
 ];
 
@@ -76,7 +79,10 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   const Icon = testimonial.icon || Search;
 
   // Calcular valores de animación
-  const offsetX = (cardSize / 1.5) * position;
+  const cardWidth = cardSize;
+  const cardHeight = cardSize * 1.25; // Aún más alto para asegurar 0 scroll
+  
+  const offsetX = (cardWidth / 1.5) * position;
   const offsetY = isCenter ? -65 : position % 2 ? 15 : -15;
   const rotateZ = isCenter ? 0 : position % 2 ? 2.5 : -2.5;
 
@@ -84,19 +90,17 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
     <motion.div
       onClick={() => handleMove(position)}
       className={cn(
-        "absolute left-1/2 top-1/2 cursor-pointer border-2 flex flex-col p-5 md:p-6",
+        "absolute left-1/2 top-1/2 cursor-pointer flex flex-col items-center text-center p-6 md:p-8 rounded-2xl transition-shadow",
         isCenter 
-          ? "z-10 bg-white text-slate-900 border-sky-200 shadow-xl shadow-slate-200" 
-          : "z-0 bg-slate-50 text-slate-600 border-slate-200 hover:border-sky-200 hover:bg-white"
+          ? "z-10 bg-white border border-sky-100 shadow-[0_16px_40px_rgb(14,165,233,0.12)]" 
+          : "z-0 bg-slate-50 border border-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(14,165,233,0.08)] hover:bg-white"
       )}
       style={{
-        width: cardSize,
-        height: cardSize,
-        marginLeft: -cardSize / 2,
-        marginTop: -cardSize / 2,
-        clipPath: `polygon(50px 0%, calc(100% - 50px) 0%, 100% 50px, 100% 100%, calc(100% - 50px) 100%, 50px 100%, 0 100%, 0 0)`,
+        width: cardWidth,
+        height: cardHeight,
+        marginLeft: -cardWidth / 2,
+        marginTop: -cardHeight / 2,
         transformOrigin: 'center center',
-        boxShadow: isCenter ? "0px 8px 0px 4px #e2e8f0" : "0px 0px 0px 0px transparent",
       }}
       initial={false}
       animate={{
@@ -111,29 +115,19 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         mass: 0.9,
       }}
     >
-      <span
-        className="absolute block origin-top-right rotate-45 bg-slate-200"
-        style={{
-          right: -2,
-          top: 48,
-          width: SQRT_5000,
-          height: 2
-        }}
-      />
-      <div
-        className="mb-2 grid size-10 place-items-center rounded-xl border bg-white shrink-0"
-        style={{
-          boxShadow: "3px 3px 0px #fff",
-          borderColor: isCenter ? "#bae6fd" : "#e2e8f0"
-        }}
-      >
-        <Icon size={20} className={isCenter ? "text-sky-600" : "text-sky-500"} />
+      <div className={cn(
+        "mb-4 flex h-14 w-14 items-center justify-center rounded-2xl shrink-0 transition-colors",
+        isCenter ? "bg-sky-50 text-sky-600 ring-1 ring-sky-100" : "bg-slate-100 text-slate-400 ring-1 ring-slate-200"
+      )}>
+        <Icon size={28} strokeWidth={1.5} />
       </div>
-      <h3 className="text-sm font-semibold leading-snug text-slate-900">
+      
+      <h3 className="mb-2 text-base md:text-lg font-semibold text-slate-800 leading-snug">
         {testimonial.by}
       </h3>
-      <div className="mt-2 flex-1 min-h-0 overflow-y-auto pr-1 [scrollbar-width:thin] [&::-webkit-scrollbar]:w-[5px] [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-300 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-slate-400">
-        <p className="text-sm leading-relaxed text-slate-600">
+      
+      <div className="flex-1 min-h-0 overflow-hidden w-full flex items-center justify-center">
+        <p className="text-[13px] md:text-[14px] leading-relaxed text-slate-500">
           {testimonial.testimonial}
         </p>
       </div>
@@ -168,7 +162,7 @@ export const StaggerTestimonials: React.FC = () => {
   useEffect(() => {
     const updateSize = () => {
       const { matches } = window.matchMedia("(min-width: 640px)");
-      setCardSize(matches ? 340 : 260);
+      setCardSize(matches ? 360 : 280);
     };
 
     updateSize();
@@ -185,7 +179,7 @@ export const StaggerTestimonials: React.FC = () => {
   return (
     <div
       className="relative w-full overflow-hidden bg-transparent"
-      style={{ height: 500 }}
+      style={{ height: 580 }}
     >
       {testimonialsList.map((testimonial, index) => {
         const position = testimonialsList.length % 2
@@ -205,24 +199,24 @@ export const StaggerTestimonials: React.FC = () => {
         <button
           onClick={() => handleMove(-1)}
           className={cn(
-            "flex h-12 w-12 items-center justify-center text-xl transition-colors",
-            "bg-white border-2 border-slate-200 text-slate-700 hover:bg-sky-500 hover:text-white hover:border-sky-500 hover:shadow-lg",
+            "flex h-12 w-12 items-center justify-center rounded-full text-xl transition-colors shadow-sm",
+            "bg-white border border-slate-200 text-slate-700 hover:bg-sky-50 hover:text-sky-600 hover:border-sky-200",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"
           )}
           aria-label="Previous testimonial"
         >
-          <ChevronLeft />
+          <ChevronLeft strokeWidth={1.5} />
         </button>
         <button
           onClick={() => handleMove(1)}
           className={cn(
-            "flex h-12 w-12 items-center justify-center text-xl transition-colors",
-            "bg-white border-2 border-slate-200 text-slate-700 hover:bg-sky-500 hover:text-white hover:border-sky-500 hover:shadow-lg",
+            "flex h-12 w-12 items-center justify-center rounded-full text-xl transition-colors shadow-sm",
+            "bg-white border border-slate-200 text-slate-700 hover:bg-sky-50 hover:text-sky-600 hover:border-sky-200",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2"
           )}
           aria-label="Next testimonial"
         >
-          <ChevronRight />
+          <ChevronRight strokeWidth={1.5} />
         </button>
       </div>
     </div>

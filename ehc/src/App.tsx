@@ -1,6 +1,5 @@
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { Stats } from './components/Stats';
 import { Features } from './components/Features';
 import { Functionalities } from './components/Functionalities';
 import { CyberSOC } from './components/CyberSOC';
@@ -42,7 +41,6 @@ export default function App(){
         {/* Contenidos con fondo transparente para ver estrellas */}
         <div className="relative z-10">
           <Hero />
-          <Stats />
         </div>
       </div>
 

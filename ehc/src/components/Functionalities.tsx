@@ -74,7 +74,7 @@ const primaryFeatures = [
     eyebrow: "Superficie de ataque",
     title: "Escaneo de puertos",
     description:
-      "Identifica puertos abiertos, servicios expuestos y posibles puntos de entrada en tus hosts. Revisa los resultados desde una vista centralizada.",
+      "Pentest365 es tu mejor aliado, facilitándote un completo reporte de Puertos, servicios y Vulnerabilidades de todos tus Hosts en menos de 5 minutos. Organiza tus escaneos por lista de Hosts, Puertos descubiertos, profile de escaneo, con geolocalización de objetivos y por lista de vulnerabilidades identificadas.",
     images: [portsImage1, portsImage2],
     alt: "Resultados del escaneo de puertos",
     icon: Network,
@@ -85,7 +85,7 @@ const primaryFeatures = [
     eyebrow: "Protección web",
     title: "Crawling y monitoreo de portales web",
     description:
-      "Recorre tus portales y observa sus cambios en el tiempo. Detecta modificaciones inesperadas y conserva una referencia de la integridad de tus páginas.",
+      "Única e innovadora herramienta de Crawling basada en colores para identificar riesgos en sus portales web de forma rápida y visual. Monitorea la integridad de todos tus portales web con nuestra función de Hashing ante el mínimo cambio no autorizado en alguno de tus sitios web.",
     images: [crawlingImage1, crawlingImage2],
     alt: "Herramienta de crawling y monitoreo de portales web",
     icon: Search,
@@ -96,7 +96,7 @@ const primaryFeatures = [
     eyebrow: "Seguimiento persistente",
     title: "Análisis de vulnerabilidades persistente",
     description:
-      "Programa análisis periódicos y sigue la evolución de tus hallazgos. Consulta métricas de riesgo para enfocar el trabajo de remediación.",
+      "Tan fácil como escoger tus objetivos, los tipos de análisis, la periodicidad de los escaneos y obtén tus métricas de riesgo basadas en estándares internacionales y de cumplimiento.",
     images: [vulnerabilityImage1, vulnerabilityImage2, vulnerabilityImage3],
     alt: "Panel de análisis persistente de vulnerabilidades",
     icon: Radar,
@@ -109,7 +109,7 @@ const secondaryFeatures = [
     number: "05",
     title: "Análisis de tecnologías web",
     description:
-      "Identifica tecnologías y componentes presentes en tus portales.",
+      "Descubra de forma pasiva todas las tecnologías web de sus portales y aplicaciones web, identifique la versión en producción y todos los exploits relacionados con esa versión. Podrás revisar o descargarte los exploits en tiempo real.",
     images: [webTechImage1, webTechImage2, webTechImage3],
     alt: "Análisis de tecnologías web",
     icon: Layers3,
@@ -118,7 +118,7 @@ const secondaryFeatures = [
     number: "06",
     title: "Análisis de cabeceras HTTP/HTTPS",
     description:
-      "Revisa la configuración de cabeceras y descubre oportunidades de mejora.",
+      "Gran parte de las vulnerabilidades de infraestructura en aplicaciones web están ligadas a vulnerabilidades y fallas de configuración en las Cabeceras HTTP/HTTPS de sus servidores Web. Con Pentest365 usted puede identificar todas estas vulnerabilidades en cuestión de segundos.",
     images: [headersImage1, headersImage2],
     alt: "Análisis de cabeceras HTTP y HTTPS",
     icon: Globe,
@@ -127,7 +127,7 @@ const secondaryFeatures = [
     number: "07",
     title: "Seguridad de certificados SSL/TLS",
     description:
-      "Inspecciona certificados, cifrado y configuración TLS de tus dominios.",
+      "Realice escaneos masivos a toda su infraestructura de TI, en busca de Certificados SSL/TLS e identifique inmediatamente protocolos de cifrado inseguros, certificados próximos a vencer y vulnerabilidades críticas de forma preventiva, antes que los ciberatacantes.",
     images: [sslImage1, sslImage2, sslImage3],
     alt: "Análisis de seguridad de certificados SSL y TLS",
     icon: LockKeyhole,
@@ -136,7 +136,7 @@ const secondaryFeatures = [
     number: "08",
     title: "Descubrimiento de servicios",
     description:
-      "Detecta y clasifica servicios disponibles en los activos analizados.",
+      "Tanto en el escaneo de puertos pasivo como el activo, usted podrá contar con un visor que clasifica todos los elementos colectados por tipo de servicio web identificado y si el puerto está abierto, cerrado o filtrado.",
     images: [servicesImage1, servicesImage2],
     alt: "Descubrimiento de servicios de red",
     icon: Network,
@@ -149,10 +149,12 @@ function ImageSlideshow({
   images,
   alt,
   interval = 3800,
+  heightClass = "h-[360px] sm:h-[390px] lg:h-[420px]",
 }: {
   images: string[];
   alt: string;
   interval?: number;
+  heightClass?: string;
 }) {
   const [index, setIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -172,7 +174,7 @@ function ImageSlideshow({
 
   return (
     <div
-      className="relative h-[360px] w-full overflow-hidden sm:h-[390px] lg:h-[420px]"
+      className={`relative w-full overflow-hidden ${heightClass}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -380,16 +382,7 @@ function PrimaryNode({
           {feature.description}
         </p>
 
-        <ul className="mt-7 flex flex-wrap gap-2">
-          {feature.tags.map((tag) => (
-            <li
-              key={tag}
-              className="rounded-full border border-cyan-100/10 bg-white/[0.04] px-3 py-1.5 text-xs text-cyan-100/80 shadow-[0_0_10px_rgba(34,211,238,0.05)]"
-            >
-              {tag}
-            </li>
-          ))}
-        </ul>
+         
       </motion.div>
 
       {/* ─── IMAGE ───────────────────────────────────────────── */}
@@ -474,10 +467,14 @@ function SecondaryNode({
   const Icon = feature.icon;
   const reducedMotion = useReducedMotion();
 
-  const isOddColumn = index % 2 === 1;
+  let asymmetricTransform = "";
+  if (index === 0) asymmetricTransform = "lg:-left-4 lg:-top-4";
+  if (index === 1) asymmetricTransform = "md:top-12 lg:left-6 lg:top-12";
+  if (index === 2) asymmetricTransform = "md:top-8 lg:-left-6 lg:top-16";
+  if (index === 3) asymmetricTransform = "md:top-24 lg:left-8 lg:top-32";
 
   return (
-    <motion.article
+    <motion.div
       initial={
         reducedMotion
           ? false
@@ -498,14 +495,27 @@ function SecondaryNode({
         duration: 0.55,
         delay: index * 0.08,
       }}
-      className={`relative flex flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/15 bg-slate-950/80 p-4 shadow-[0_16px_48px_rgba(0,0,0,0.45)] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/40 hover:shadow-[0_20px_60px_rgba(34,211,238,0.12)] sm:p-5 ${
-        isOddColumn ? "md:translate-y-12 lg:translate-y-16" : ""
-      } ${className}`}
+      className={`relative ${asymmetricTransform} ${className}`}
     >
-      <div>
+      <motion.article
+        animate={
+          reducedMotion
+            ? false
+            : {
+                y: [0, -8, 0],
+              }
+        }
+        transition={{
+          repeat: Infinity,
+          duration: 5 + index * 0.5,
+          ease: "easeInOut",
+        }}
+        className="relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-cyan-500/15 bg-slate-950/80 p-4 shadow-[0_16px_48px_rgba(0,0,0,0.45)] backdrop-blur-md sm:p-5"
+      >
+        <div>
         <div className="mb-3 flex items-center justify-between">
-          <span className="text-xs font-semibold tracking-[0.18em] text-cyan-200/70">
-            NODO {feature.number}
+          <span className="text-xs font-semibold tracking-[0.15em] text-cyan-200/70 uppercase">
+            {feature.title}
           </span>
 
           <span className="grid size-9 place-items-center rounded-lg border border-cyan-300/20 bg-cyan-300/[0.08] text-cyan-200 shadow-[0_0_12px_rgba(34,211,238,0.15)]">
@@ -517,23 +527,21 @@ function SecondaryNode({
         <div className="relative overflow-hidden rounded-xl border border-white/[0.08] bg-slate-900/90">
           <ImageSlideshow
             images={feature.images}
-            alt={feature.alt}
+            alt={feature.title}
+            heightClass="h-[180px] sm:h-[200px] lg:h-[220px]"
           />
         </div>
       </div>
 
       <div className="mt-5 flex flex-1 flex-col justify-between">
         <div>
-          <h3 className="text-lg font-semibold text-white sm:text-xl">
-            {feature.title}
-          </h3>
-
-          <p className="mt-2 text-sm leading-6 text-slate-300/85">
+          <p className="text-sm leading-6 text-slate-300/85">
             {feature.description}
           </p>
         </div>
-      </div>
-    </motion.article>
+        </div>
+      </motion.article>
+    </motion.div>
   );
 }
 
@@ -541,31 +549,27 @@ function SecondaryNode({
 
 function SecondaryConstellationNet() {
   const perimeterPoints =
-    "240,140 380,110 520,230 760,200 820,350 710,500 760,680 600,730 400,580 240,620 180,480 290,300 240,140";
-  const crossPoints = "240,140 350,320 500,410 650,480 760,680";
+    "250,200 500,180 750,250 820,450 750,650 500,680 250,600 180,400 250,200";
+  const cross1 = "250,200 450,380 550,480 750,650";
+  const cross2 = "250,600 350,450 650,300 750,250";
 
   const waypoints = [
-    // Main corners
-    { cx: 240, cy: 140, r: 4, opacity: 0.9, color: "#a5f3fc" },
-    { cx: 760, cy: 200, r: 3.5, opacity: 0.8, color: "#38bdf8" },
-    { cx: 760, cy: 680, r: 4, opacity: 0.9, color: "#22d3ee" },
-    { cx: 240, cy: 620, r: 3, opacity: 0.8, color: "#818cf8" },
-    // Top edge
-    { cx: 380, cy: 110, r: 2, opacity: 0.4, color: "#c7d2fe" },
-    { cx: 520, cy: 230, r: 2.5, opacity: 0.6, color: "#38bdf8" },
-    // Right edge
-    { cx: 820, cy: 350, r: 1.5, opacity: 0.3, color: "#a5f3fc" },
-    { cx: 710, cy: 500, r: 2.5, opacity: 0.5, color: "#22d3ee" },
-    // Bottom edge
-    { cx: 600, cy: 730, r: 2, opacity: 0.4, color: "#818cf8" },
-    { cx: 400, cy: 580, r: 1.5, opacity: 0.6, color: "#c7d2fe" },
-    // Left edge
-    { cx: 180, cy: 480, r: 2.5, opacity: 0.5, color: "#38bdf8" },
-    { cx: 290, cy: 300, r: 2, opacity: 0.3, color: "#a5f3fc" },
-    // Cross
-    { cx: 350, cy: 320, r: 1.5, opacity: 0.4, color: "#c7d2fe" },
-    { cx: 500, cy: 410, r: 3, opacity: 0.9, color: "#22d3ee", pulse: true },
-    { cx: 650, cy: 480, r: 2, opacity: 0.5, color: "#818cf8" },
+    // Main anchor points (matching roughly the centers of the 4 compact cards)
+    { cx: 250, cy: 200, r: 4, opacity: 0.9, color: "#a5f3fc" },
+    { cx: 750, cy: 250, r: 3.5, opacity: 0.8, color: "#38bdf8" },
+    { cx: 250, cy: 600, r: 3.5, opacity: 0.8, color: "#818cf8" },
+    { cx: 750, cy: 650, r: 4, opacity: 0.9, color: "#22d3ee" },
+    // Perimeter jumps
+    { cx: 500, cy: 180, r: 2, opacity: 0.4, color: "#c7d2fe" },
+    { cx: 820, cy: 450, r: 1.5, opacity: 0.3, color: "#a5f3fc" },
+    { cx: 500, cy: 680, r: 2, opacity: 0.4, color: "#818cf8" },
+    { cx: 180, cy: 400, r: 2.5, opacity: 0.5, color: "#38bdf8" },
+    // Cross 1 jumps
+    { cx: 450, cy: 380, r: 1.5, opacity: 0.4, color: "#c7d2fe" },
+    { cx: 550, cy: 480, r: 2.5, opacity: 0.8, color: "#22d3ee", pulse: true },
+    // Cross 2 jumps
+    { cx: 350, cy: 450, r: 2, opacity: 0.5, color: "#818cf8" },
+    { cx: 650, cy: 300, r: 2.5, opacity: 0.7, color: "#a5f3fc", pulse: true },
   ];
 
   return (
@@ -599,9 +603,20 @@ function SecondaryConstellationNet() {
         strokeLinejoin="bevel"
       />
 
-      {/* Diagonal Cross */}
+      {/* Diagonal Cross 1 */}
       <polyline
-        points={crossPoints}
+        points={cross1}
+        fill="none"
+        stroke="url(#sec-constellation-grad)"
+        strokeWidth="1"
+        strokeDasharray="3 5"
+        strokeLinejoin="bevel"
+        strokeOpacity="0.7"
+      />
+
+      {/* Diagonal Cross 2 */}
+      <polyline
+        points={cross2}
         fill="none"
         stroke="url(#sec-constellation-grad)"
         strokeWidth="1"
@@ -684,32 +699,34 @@ export function Functionalities() {
           </motion.p>
 
           <motion.h2
-            id="funcionalidades-heading"
-            initial={
-              reducedMotion
-                ? false
-                : {
-                    opacity: 0,
-                    y: 16,
-                  }
-            }
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-            }}
-            transition={{
-              delay: 0.08,
-            }}
-            className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl"
-          >
-            Una vista completa de tu{" "}
-            <span className="text-cyan-200">
-              superficie digital
-            </span>
-          </motion.h2>
+  id="funcionalidades-heading"
+  initial={
+    reducedMotion
+      ? false
+      : {
+          opacity: 0,
+          y: 16,
+        }
+  }
+  whileInView={{
+    opacity: 1,
+    y: 0,
+  }}
+  viewport={{
+    once: true,
+  }}
+  transition={{
+    delay: 0.08,
+  }}
+  className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl"
+>
+  <span style={{ color: "#fdfcfc" }}>
+    Una vista completa de tu
+  </span>{" "}
+  <span style={{ color: "#22D3EE" }}>
+    superficie digital
+  </span>
+</motion.h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-slate-300/80">
             Explora las herramientas que te ayudan a descubrir, evaluar y
@@ -761,10 +778,10 @@ export function Functionalities() {
              
           </div>
 
-          <div className="relative">
+          <div className="relative mx-auto max-w-5xl">
             <SecondaryConstellationNet />
 
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
               {secondaryFeatures.map((feature, index) => (
                 <SecondaryNode
                   key={feature.number}
